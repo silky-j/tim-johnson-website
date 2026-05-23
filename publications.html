@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications — Timothy P. Johnson</title>
+  <meta name="description" content="Interactive visualizer of Dr. Timothy P. Johnson's research publications: timeline, themes, journals, and co-author network.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Shared site styles (nav) + visualizer styles -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/visualizer.css">
+</head>
+<body>
+
+  <!-- ===== Shared site nav (dark variant) ===== -->
+  <nav class="site-nav site-nav--dark">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-mark"><i data-lucide="bar-chart-3"></i></span>
+        Timothy P. Johnson
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="publications.html" class="active">Publications</a>
+        <a href="books.html">Books</a>
+        <a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener" class="nav-ext"><i data-lucide="external-link"></i> Scholar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- App Shell -->
+  <div class="app-container">
+
+    <!-- Background Decoration -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Header / Banner -->
+    <header class="app-header">
+      <div class="profile-section">
+        <div class="profile-badge">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <div class="profile-info">
+          <h1>Dr. Timothy P. Johnson</h1>
+          <p class="subtitle">Professor Emeritus, University of Illinois Chicago (UIC)</p>
+          <div class="profile-tags">
+            <span class="tag"><i data-lucide="tag"></i> Survey Methodology</span>
+            <span class="tag"><i data-lucide="tag"></i> Social Epidemiology</span>
+            <span class="tag"><i data-lucide="tag"></i> Health Disparities</span>
+            <a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener" class="tag scholar-tag"><i data-lucide="external-link"></i> Google Scholar Profile</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="book-open"></i></div>
+          <div class="stat-content">
+            <span class="stat-val" id="stat-total-papers">0</span>
+            <span class="stat-lbl">Publications (PubMed)</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="calendar"></i></div>
+          <div class="stat-content">
+            <span class="stat-val" id="stat-years-span">0</span>
+            <span class="stat-lbl">Years of Research</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="users"></i></div>
+          <div class="stat-content">
+            <span class="stat-val" id="stat-total-coauthors">0</span>
+            <span class="stat-lbl">Co-Authors</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+
+      <!-- Sidebar / Filters -->
+      <aside class="sidebar">
+        <!-- Search -->
+        <div class="filter-card search-box-container">
+          <h3>Search</h3>
+          <div class="search-wrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search title, abstract, author...">
+            <button id="clear-search-btn" class="clear-btn" aria-label="Clear search" style="display: none;">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Research Domains -->
+        <div class="filter-card">
+          <h3>Research Themes</h3>
+          <div class="filter-options" id="theme-filters">
+            <button class="filter-btn active" data-theme="all">
+              <span class="indicator"></span> All Research
+            </button>
+            <button class="filter-btn" data-theme="survey-methods">
+              <span class="indicator"></span> Survey Methodology
+            </button>
+            <button class="filter-btn" data-theme="social-epi">
+              <span class="indicator"></span> Social Epidemiology
+            </button>
+            <button class="filter-btn" data-theme="substance-abuse">
+              <span class="indicator"></span> Substance Use
+            </button>
+            <button class="filter-btn" data-theme="covid-academia">
+              <span class="indicator"></span> COVID-19 & Academia
+            </button>
+            <button class="filter-btn" data-theme="cancer-health">
+              <span class="indicator"></span> Cancer & Health Screening
+            </button>
+          </div>
+        </div>
+
+        <!-- Top Co-Authors -->
+        <div class="filter-card">
+          <h3>Frequent Co-Authors</h3>
+          <div class="coauthors-list" id="coauthors-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Top Journals -->
+        <div class="filter-card">
+          <h3>Top Journals</h3>
+          <div class="journals-list" id="journals-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Google Scholar Info Card -->
+        <div class="filter-card scholar-info-card">
+          <h3>Full Publication History</h3>
+          <p class="scholar-info-text">This dashboard indexes all 428 publications found on OpenAlex, Crossref, Semantic Scholar, and PubMed. Dr. Timothy P. Johnson has also published book chapters, conference proceedings, and additional studies across social sciences and survey research.</p>
+          <a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener" class="scholar-card-btn">
+            <i data-lucide="graduation-cap"></i> Google Scholar Profile
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Visuals & Content -->
+      <main class="content-area">
+
+        <!-- View Switcher Tabs -->
+        <div class="view-tabs">
+          <button class="view-tab-btn active" data-view="dashboard" id="tab-dashboard">
+            <i data-lucide="layout-dashboard"></i> Dashboard Feed
+          </button>
+          <button class="view-tab-btn" data-view="network" id="tab-network">
+            <i data-lucide="share-2"></i> Co-Author Network
+          </button>
+        </div>
+
+        <!-- Dashboard View (Timeline + Publications List) -->
+        <div id="view-dashboard" class="tab-view active-view">
+          <!-- Timeline Section -->
+          <section class="visualizer-section">
+            <div class="section-header">
+              <h2><i data-lucide="bar-chart-3"></i> Publication Timeline</h2>
+              <button id="reset-timeline-btn" class="text-btn" style="display: none;">
+                Reset Timeline Filter
+              </button>
+            </div>
+            <div class="timeline-container">
+              <div class="timeline-scroll">
+                <svg id="timeline-svg" class="timeline-chart"></svg>
+              </div>
+              <div class="timeline-helper-text">
+                <i data-lucide="info" style="width: 14px; height: 14px;"></i> Click on any bar to filter papers by that year
+              </div>
+            </div>
+          </section>
+
+          <!-- Publications Section -->
+          <section class="publications-section">
+            <div class="section-header">
+              <h2>
+                <i data-lucide="list"></i>
+                <span id="results-count-title">All Publications</span>
+                <span class="results-badge" id="results-badge-count">0</span>
+              </h2>
+              <div class="sort-container">
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="title">Title (A-Z)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Active Filters Bar -->
+            <div id="active-filters-bar" class="active-filters-bar" style="display: none;">
+              <span class="active-filters-label">Active filters:</span>
+              <div class="active-filters-tags" id="active-filters-tags"></div>
+              <button id="clear-all-filters-btn" class="clear-all-btn">Clear All</button>
+            </div>
+
+            <!-- Papers Grid -->
+            <div class="papers-grid" id="papers-grid">
+              <!-- Dynamically populated cards -->
+            </div>
+
+            <!-- Pagination or Empty state -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+              <i data-lucide="folder-open" class="empty-icon"></i>
+              <h3>No publications found</h3>
+              <p>Try adjusting your search query, selecting another research theme, or clearing active filters.</p>
+              <button id="empty-reset-btn" class="btn btn-primary">Reset Filters</button>
+            </div>
+          </section>
+        </div>
+
+        <!-- Co-Author Network Graph View -->
+        <div id="view-network" class="tab-view" style="display: none;">
+          <section class="visualizer-section network-section">
+            <div class="section-header">
+              <h2><i data-lucide="share-2"></i> Interactive Co-Author Network</h2>
+              <div class="network-controls">
+                <label for="network-min-papers">Min Papers:</label>
+                <select id="network-min-papers">
+                  <option value="1">1+ Papers</option>
+                  <option value="2">2+ Papers</option>
+                  <option value="3" selected>3+ Papers</option>
+                  <option value="5">5+ Papers</option>
+                  <option value="10">10+ Papers</option>
+                </select>
+                <button id="reset-network-btn" class="text-btn">Reset Layout</button>
+              </div>
+            </div>
+            <div class="network-container-wrapper">
+              <div id="cy" class="network-canvas"></div>
+              <div class="network-legend">
+                <div class="legend-item">
+                  <span class="legend-dot main-dot"></span>
+                  <span>Timothy P. Johnson</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot coauthor-dot"></span>
+                  <span>Co-Author (Size = Collaborations)</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-helper-text">
+              <i data-lucide="info" style="width: 14px; height: 14px;"></i> Drag nodes to explore. Click a co-author node to filter the publications list to their shared works.
+            </div>
+          </section>
+        </div>
+      </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Data retrieved from OpenAlex, Crossref, Semantic Scholar, and PubMed. Dr. Timothy P. Johnson Visualizer &copy; <span data-year>2026</span>. &middot; <a href="index.html">Back to home</a></p>
+    </footer>
+  </div>
+
+  <!-- Detail Dialog / Modal -->
+  <dialog id="paper-dialog" closedby="any" aria-labelledby="dialog-title">
+    <div class="dialog-content">
+      <header class="dialog-header">
+        <span class="dialog-category" id="dialog-category-badge">Research Article</span>
+        <button class="dialog-close-btn" id="dialog-close-btn" aria-label="Close dialog">
+          <i data-lucide="x"></i>
+        </button>
+      </header>
+      <main class="dialog-body">
+        <h2 id="dialog-title" class="dialog-title">Paper Title</h2>
+        <div class="dialog-meta">
+          <span class="meta-item"><i data-lucide="book-open"></i> <span id="dialog-journal">Journal Name</span></span>
+          <span class="meta-item"><i data-lucide="calendar"></i> <span id="dialog-date">Pub Date</span></span>
+          <span class="meta-item" id="dialog-doi-container"><i data-lucide="external-link"></i> <a href="#" id="dialog-doi" target="_blank" rel="noopener">DOI link</a></span>
+        </div>
+
+        <div class="dialog-section">
+          <h3>Authors</h3>
+          <div class="dialog-authors" id="dialog-authors">
+            <!-- List of authors -->
+          </div>
+        </div>
+
+        <div class="dialog-section">
+          <h3>Abstract</h3>
+          <div class="dialog-abstract" id="dialog-abstract">
+            <!-- Abstract text -->
+          </div>
+        </div>
+      </main>
+      <footer class="dialog-footer">
+        <span class="dialog-pmid">PMID: <strong id="dialog-pmid-val">000000</strong></span>
+        <button class="btn btn-secondary" id="dialog-footer-close-btn">Close</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Load Cytoscape.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+  <!-- Shared nav behavior + icons -->
+  <script src="assets/js/site.js"></script>
+  <!-- Visualizer app -->
+  <script type="module" src="assets/js/visualizer-app.js"></script>
+</body>
+</html>

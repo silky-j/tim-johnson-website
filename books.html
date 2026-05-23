@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Books — Timothy P. Johnson</title>
+  <meta name="description" content="Books, edited volumes, and book chapters authored by Dr. Timothy P. Johnson in survey methodology and social research." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+
+  <!-- ===== Nav ===== -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-mark"><i data-lucide="bar-chart-3"></i></span>
+        Timothy P. Johnson
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="books.html" class="active">Books</a>
+        <a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener" class="nav-ext"><i data-lucide="external-link"></i> Scholar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Page head ===== -->
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Books</span>
+      <h1>Books &amp; edited volumes</h1>
+      <p class="lead">
+        Authored and edited books, plus selected book chapters, spanning questionnaire design,
+        cross-cultural survey methods, hard-to-survey populations, and substance-use research.
+      </p>
+      <div class="chips" style="margin-top:18px;">
+        <span class="chip">Authored</span>
+        <span class="chip teal">Edited volume</span>
+        <span class="book-tag chapter" style="text-transform:none;">Book chapter</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Books list (rendered) ===== -->
+  <section class="section">
+    <div class="wrap" id="books-root"></div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Timothy P. Johnson</div>
+          <p>Survey methodologist and cross-cultural research pioneer. Professor Emeritus, University of Illinois Chicago &middot; Senior Research Fellow, NORC.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="books.html">Books</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:timj@uic.edu"><i data-lucide="mail"></i> timj@uic.edu</a></li>
+            <li><a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener"><i data-lucide="graduation-cap"></i> Google Scholar</a></li>
+            <li><a href="#" rel="noopener"><i data-lucide="linkedin"></i> LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Timothy P. Johnson. All rights reserved.</span>
+        <span class="wink">Built with love by his kids &mdash; accuracy guaranteed within one standard deviation.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/books-data.js"></script>
+  <script>
+    (function () {
+      const root = document.getElementById('books-root');
+      const books = (window.BOOKS || []).slice();
+
+      const DECADES = [
+        { label: '2020 – Present', test: (y) => y >= 2020 },
+        { label: '2010 – 2019', test: (y) => y >= 2010 && y <= 2019 },
+        { label: '2000 – 2009', test: (y) => y >= 2000 && y <= 2009 },
+        { label: '1990 – 1999', test: (y) => y >= 1990 && y <= 1999 },
+      ];
+
+      const KIND_LABEL = { authored: 'Authored', edited: 'Edited volume', chapter: 'Book chapter' };
+      const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+      function cardHTML(b) {
+        const pub = [b.inBook ? 'In: ' + esc(b.inBook) : null, b.publisher ? esc(b.publisher) : null]
+          .filter(Boolean).join(' · ');
+        return (
+          '<article class="card book-card">' +
+            '<div class="book-top">' +
+              '<span class="book-tag ' + b.kind + '">' + KIND_LABEL[b.kind] + '</span>' +
+              '<span class="book-year">' + b.year + '</span>' +
+            '</div>' +
+            '<h3>' + esc(b.title) + '</h3>' +
+            '<p class="book-auth">' + esc(b.authors) + '</p>' +
+            (pub ? '<p class="book-pub">' + pub + '</p>' : '') +
+          '</article>'
+        );
+      }
+
+      let html = '';
+      DECADES.forEach((d) => {
+        const items = books.filter((b) => d.test(b.year)).sort((a, b) => b.year - a.year);
+        if (!items.length) return;
+        html +=
+          '<div class="decade-block">' +
+            '<div class="decade-head"><h2>' + d.label + '</h2>' +
+              '<span class="count">' + items.length + (items.length === 1 ? ' title' : ' titles') + '</span></div>' +
+            '<div class="book-grid">' + items.map(cardHTML).join('') + '</div>' +
+          '</div>';
+      });
+      root.innerHTML = html;
+    })();
+  </script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
