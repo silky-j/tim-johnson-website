@@ -239,127 +239,276 @@ function renderTimeline() {
   });
 }
 
-// --- Dynamic Cytoscape Graph Rendering ---
-let cyInstance = null;
+// --- Canvas Radial Orbit Network ---
+let orbitCanvas = null;
+let orbitHovered = null;
+let orbitNodes = [];
+let orbitResizeObserver = null;
 
-function renderNetworkGraph() {
+const ORBIT_RING_COLORS = ['#a78bfa', '#2dd4bf', '#3b82f6'];
+const ORBIT_TIM_COLOR = '#a78bfa';
+
+function hex2rgba(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function buildOrbitNodes(cx, cy, baseR, minPapers) {
+  const coauthors = state.network.nodes.filter(n =>
+    n.data.type !== 'main' && n.data.count >= minPapers
+  );
+  const maxCount = coauthors.reduce((m, n) => Math.max(m, n.data.count), 1);
+  const rings = [[], [], []];
+  coauthors.forEach(n => {
+    const c = n.data.count;
+    if (c >= 15) rings[0].push(n);
+    else if (c >= 6) rings[1].push(n);
+    else rings[2].push(n);
+  });
+  const radii = [baseR * 0.38, baseR * 0.63, baseR * 0.93];
+  const nodes = [];
+  rings.forEach((ring, ri) => {
+    ring.forEach((n, i) => {
+      const angle = (i / ring.length) * Math.PI * 2 - Math.PI / 2;
+      nodes.push({
+        id: n.data.id, label: n.data.label, count: n.data.count,
+        ring: ri, x: cx + radii[ri] * Math.cos(angle),
+        y: cy + radii[ri] * Math.sin(angle),
+        nodeRadius: 4.5 + (n.data.count / maxCount) * 11
+      });
+    });
+  });
+  return nodes;
+}
+
+function drawOrbitNetwork() {
+  if (!orbitCanvas) return;
+  const ctx = orbitCanvas.getContext('2d');
+  const W = orbitCanvas.width, H = orbitCanvas.height;
+  const cx = W / 2, cy = H / 2;
+  const baseR = Math.min(W, H) * 0.44;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Ambient background glows
+  const glowDefs = [
+    { x: cx * 0.6, y: cy * 0.7, r: baseR * 0.8, color: 'rgba(139, 92, 246, 0.07)' },
+    { x: cx * 1.4, y: cy * 1.3, r: baseR * 0.7, color: 'rgba(45, 212, 191, 0.06)' },
+    { x: cx * 1.2, y: cy * 0.5, r: baseR * 0.6, color: 'rgba(59, 130, 246, 0.06)' }
+  ];
+  glowDefs.forEach(g => {
+    const grad = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r);
+    grad.addColorStop(0, g.color);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // Dashed ring guide circles
+  const ringRadii = [baseR * 0.38, baseR * 0.63, baseR * 0.93];
+  ringRadii.forEach((r, ri) => {
+    ctx.save();
+    ctx.setLineDash([4, 8]);
+    ctx.strokeStyle = hex2rgba(ORBIT_RING_COLORS[ri], 0.12);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  // Draw curved edges
+  orbitNodes.forEach(n => {
+    const isHovered = orbitHovered && orbitHovered.id === n.id;
+    const isDimmed = orbitHovered && !isHovered;
+    const dx = n.x - cx, dy = n.y - cy;
+    const len = Math.sqrt(dx * dx + dy * dy) || 1;
+    const cpx = cx + dx * 0.5 - dy / len * 40;
+    const cpy = cy + dy * 0.5 + dx / len * 40;
+    const nodeColor = ORBIT_RING_COLORS[n.ring];
+    const grad = ctx.createLinearGradient(cx, cy, n.x, n.y);
+    grad.addColorStop(0, hex2rgba(ORBIT_TIM_COLOR, isDimmed ? 0.02 : isHovered ? 0.6 : 0.2));
+    grad.addColorStop(1, hex2rgba(nodeColor, isDimmed ? 0.02 : isHovered ? 0.7 : 0.2));
+    ctx.save();
+    ctx.shadowBlur = isHovered ? 12 : 0;
+    ctx.shadowColor = nodeColor;
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = isHovered ? 1.5 : 0.8;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.quadraticCurveTo(cpx, cpy, n.x, n.y);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  // Tim center node — outer halo
+  const haloGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 32);
+  haloGrad.addColorStop(0, 'rgba(167, 139, 250, 0.25)');
+  haloGrad.addColorStop(0.5, 'rgba(139, 92, 246, 0.12)');
+  haloGrad.addColorStop(1, 'transparent');
+  ctx.fillStyle = haloGrad;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 32, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Tim center node — glowing core
+  ctx.save();
+  ctx.shadowBlur = 28;
+  ctx.shadowColor = '#a78bfa';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+  ctx.fillStyle = '#7c3aed';
+  ctx.fill();
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+  ctx.fillStyle = '#8b5cf6';
+  ctx.fill();
+  ctx.font = 'bold 10px Outfit, sans-serif';
+  ctx.fillStyle = '#f8fafc';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('TPJ', cx, cy);
+
+  // Draw co-author nodes + labels
+  orbitNodes.forEach(n => {
+    const isHovered = orbitHovered && orbitHovered.id === n.id;
+    const isDimmed = orbitHovered && !isHovered;
+    const nodeColor = ORBIT_RING_COLORS[n.ring];
+
+    ctx.save();
+    ctx.globalAlpha = isDimmed ? 0.2 : 1;
+    ctx.shadowBlur = isHovered ? 20 : 10;
+    ctx.shadowColor = nodeColor;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.nodeRadius, 0, Math.PI * 2);
+    ctx.fillStyle = isHovered ? nodeColor : hex2rgba(nodeColor, 0.75);
+    ctx.fill();
+    ctx.restore();
+
+    const lastName = n.label.split(/[\s,]+/)[0];
+    ctx.save();
+    ctx.globalAlpha = isDimmed ? 0.15 : isHovered ? 1 : 0.75;
+    ctx.font = `${isHovered ? '600' : '400'} 10px Outfit, sans-serif`;
+    ctx.fillStyle = isHovered ? '#fff' : '#94a3b8';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(lastName, n.x, n.y + n.nodeRadius + 4);
+    ctx.restore();
+  });
+}
+
+function renderOrbitNetwork() {
   const container = document.getElementById('cy');
   if (!container || !state.network.nodes.length) return;
-  
-  const minPapers = parseInt(document.getElementById('network-min-papers').value, 10);
-  
-  // Find central Timothy P. Johnson node
-  const mainNode = state.network.nodes.find(n => n.data.type === 'main');
-  const mainId = mainNode ? mainNode.data.id : '';
-  
-  // Filter nodes
-  const filteredNodes = state.network.nodes.filter(n => {
-    if (n.data.type === 'main') return true;
-    return n.data.count >= minPapers;
-  });
-  
-  const filteredNodeIds = new Set(filteredNodes.map(n => n.data.id));
-  const filteredEdges = state.network.edges.filter(e => {
-    return filteredNodeIds.has(e.data.source) && filteredNodeIds.has(e.data.target);
-  });
-  
-  const elements = [...filteredNodes, ...filteredEdges];
-  
-  if (cyInstance) {
-    cyInstance.destroy();
-  }
-  
-  cyInstance = cytoscape({
-    container: container,
-    elements: elements,
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'label': 'data(label)',
-          'color': '#94a3b8',
-          'font-family': 'Outfit, sans-serif',
-          'font-size': '11px',
-          'text-valign': 'bottom',
-          'text-margin-y': '6px',
-          'background-color': '#0d9488',
-          'width': function(ele) {
-            const count = ele.data('count') || 1;
-            return Math.min(50, 16 + count * 1.5);
-          },
-          'height': function(ele) {
-            const count = ele.data('count') || 1;
-            return Math.min(50, 16 + count * 1.5);
-          },
-          'overlay-opacity': 0
-        }
-      },
-      {
-        selector: 'node[type="main"]',
-        style: {
-          'background-color': '#8b5cf6',
-          'width': '55px',
-          'height': '55px',
-          'label': 'data(label)',
-          'font-size': '13px',
-          'font-weight': 'bold',
-          'color': '#f8fafc',
-          'text-margin-y': '8px'
-        }
-      },
-      {
-        selector: 'edge',
-        style: {
-          'width': function(ele) {
-            const weight = ele.data('weight') || 1;
-            return Math.min(6, 1 + weight * 0.4);
-          },
-          'line-color': 'rgba(255, 255, 255, 0.08)',
-          'curve-style': 'haystack'
-        }
-      },
-      {
-        selector: 'node:selected',
-        style: {
-          'border-width': '2px',
-          'border-color': '#2dd4bf',
-          'background-color': '#0f766e'
+
+  let canvas = container.querySelector('canvas.orbit-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.className = 'orbit-canvas';
+    canvas.style.cssText = 'width:100%;height:100%;display:block;cursor:default;';
+    container.innerHTML = '';
+    container.appendChild(canvas);
+
+    // Floating tooltip
+    let tooltip = document.getElementById('orbit-tooltip');
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = 'orbit-tooltip';
+      tooltip.style.cssText = [
+        'position:fixed', 'pointer-events:none', 'display:none', 'z-index:1000',
+        'background:rgba(8,11,17,0.92)', 'border:1px solid rgba(255,255,255,0.12)',
+        'border-radius:8px', 'padding:10px 14px', 'font-family:Outfit,sans-serif',
+        'font-size:13px', 'color:#f8fafc', 'backdrop-filter:blur(8px)',
+        'box-shadow:0 8px 32px rgba(0,0,0,0.5)', 'max-width:200px', 'line-height:1.4'
+      ].join(';');
+      document.body.appendChild(tooltip);
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mx = (e.clientX - rect.left) * scaleX;
+      const my = (e.clientY - rect.top) * scaleY;
+      let closest = null, closestDist = Infinity;
+      orbitNodes.forEach(n => {
+        const d = Math.sqrt((n.x - mx) ** 2 + (n.y - my) ** 2);
+        if (d < n.nodeRadius + 8 && d < closestDist) { closestDist = d; closest = n; }
+      });
+      const prev = orbitHovered;
+      orbitHovered = closest;
+      if (closest !== prev) drawOrbitNetwork();
+      const tip = document.getElementById('orbit-tooltip');
+      if (closest && tip) {
+        tip.style.display = 'block';
+        tip.style.left = (e.clientX + 16) + 'px';
+        tip.style.top = (e.clientY - 10) + 'px';
+        const col = ORBIT_RING_COLORS[closest.ring];
+        tip.innerHTML = `<span style="color:${col};font-weight:600">${closest.label}</span><br><span style="color:#64748b;font-size:11px">${closest.count} shared publication${closest.count !== 1 ? 's' : ''}</span>`;
+        canvas.style.cursor = 'pointer';
+      } else if (tip) {
+        tip.style.display = 'none';
+        canvas.style.cursor = 'default';
+      }
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      orbitHovered = null;
+      drawOrbitNetwork();
+      const tip = document.getElementById('orbit-tooltip');
+      if (tip) tip.style.display = 'none';
+      canvas.style.cursor = 'default';
+    });
+
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mx = (e.clientX - rect.left) * scaleX;
+      const my = (e.clientY - rect.top) * scaleY;
+      let clicked = null;
+      orbitNodes.forEach(n => {
+        const d = Math.sqrt((n.x - mx) ** 2 + (n.y - my) ** 2);
+        if (d < n.nodeRadius + 8) clicked = n;
+      });
+      if (clicked) {
+        state.filters.coauthor = clicked.label;
+        switchTab('dashboard');
+        renderSidebarLists();
+        applyFilters();
+      }
+    });
+
+    // Redraw on container resize
+    if (orbitResizeObserver) orbitResizeObserver.disconnect();
+    orbitResizeObserver = new ResizeObserver(() => {
+      if (orbitCanvas) {
+        const c = orbitCanvas.parentElement;
+        if (c) {
+          orbitCanvas.width = c.offsetWidth;
+          orbitCanvas.height = c.offsetHeight;
+          rebuildOrbit();
         }
       }
-    ],
-    layout: {
-      name: 'cose',
-      idealEdgeLength: 100,
-      nodeOverlap: 20,
-      refresh: 20,
-      fit: true,
-      padding: 30,
-      randomize: false,
-      componentSpacing: 100,
-      nodeRepulsion: 400000,
-      edgeElasticity: 100,
-      nestingFactor: 5,
-      gravity: 80,
-      numIter: 1000
-    }
-  });
-  
-  // Register tap listener
-  cyInstance.on('tap', 'node', function(evt) {
-    const node = evt.target;
-    const nodeId = node.id();
-    const nodeName = node.data('label');
-    const nodeType = node.data('type');
-    
-    if (nodeType === 'main') {
-      clearAllFilters();
-    } else {
-      state.filters.coauthor = nodeName;
-      switchTab('dashboard');
-      renderSidebarLists();
-      applyFilters();
-    }
-  });
+    });
+    orbitResizeObserver.observe(container);
+  }
+
+  orbitCanvas = canvas;
+  canvas.width = container.offsetWidth;
+  canvas.height = container.offsetHeight;
+  rebuildOrbit();
+}
+
+function rebuildOrbit() {
+  if (!orbitCanvas) return;
+  const W = orbitCanvas.width, H = orbitCanvas.height;
+  const minPapers = parseInt(document.getElementById('network-min-papers').value, 10);
+  orbitNodes = buildOrbitNodes(W / 2, H / 2, Math.min(W, H) * 0.44, minPapers);
+  drawOrbitNetwork();
 }
 
 // --- Filter & Search Engine ---
@@ -608,7 +757,7 @@ function switchTab(view) {
   
   if (view === 'network') {
     setTimeout(() => {
-      renderNetworkGraph();
+      renderOrbitNetwork();
     }, 50);
   }
 }
@@ -695,20 +844,14 @@ function setupEventListeners() {
   const minPapersSelect = document.getElementById('network-min-papers');
   if (minPapersSelect) {
     minPapersSelect.addEventListener('change', () => {
-      renderNetworkGraph();
+      rebuildOrbit();
     });
   }
-  
+
   const resetNetworkBtn = document.getElementById('reset-network-btn');
   if (resetNetworkBtn) {
     resetNetworkBtn.addEventListener('click', () => {
-      if (cyInstance) {
-        cyInstance.layout({
-          name: 'cose',
-          fit: true,
-          padding: 30
-        }).run();
-      }
+      rebuildOrbit();
     });
   }
   
