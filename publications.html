@@ -33,7 +33,6 @@
         <a href="about.html">About</a>
         <a href="publications.html" class="active">Publications</a>
         <a href="books.html">Books</a>
-        <a href="https://scholar.google.com/citations?user=DGHsTEgAAAAJ&hl=en" target="_blank" rel="noopener" class="nav-ext"><i data-lucide="external-link"></i> Scholar</a>
       </div>
     </div>
   </nav>
@@ -101,7 +100,7 @@
           <h3>Search</h3>
           <div class="search-wrapper">
             <i data-lucide="search" class="search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search title, abstract, author...">
+            <input type="text" id="search-input" placeholder="title, abstract, author...">
             <button id="clear-search-btn" class="clear-btn" aria-label="Clear search" style="display: none;">
               <i data-lucide="x"></i>
             </button>
@@ -201,7 +200,7 @@
           <!-- Timeline Section -->
           <section class="visualizer-section">
             <div class="section-header">
-              <h2><i data-lucide="bar-chart-3"></i> Publication Timeline</h2>
+              <h2><i data-lucide="trending-up"></i> Publication Timeline</h2>
               <button id="reset-timeline-btn" class="text-btn" style="display: none;">
                 Reset Timeline Filter
               </button>
@@ -220,7 +219,7 @@
           <section class="publications-section">
             <div class="section-header">
               <h2>
-                <i data-lucide="list"></i>
+                <i data-lucide="library"></i>
                 <span id="results-count-title">All Publications</span>
                 <span class="results-badge" id="results-badge-count">0</span>
               </h2>
@@ -275,19 +274,19 @@
             </div>
             <div class="network-container-wrapper">
               <div id="cy" class="network-canvas"></div>
-              <div class="network-legend">
-                <div class="legend-item">
-                  <span class="legend-dot main-dot"></span>
-                  <span>Timothy P. Johnson</span>
-                </div>
-                <div class="legend-item">
-                  <span class="legend-dot coauthor-dot"></span>
-                  <span>Co-Author (Size = collaborations · Color = proximity)</span>
-                </div>
+            </div>
+            <div class="network-legend">
+              <div class="legend-item">
+                <span class="legend-dot main-dot"></span>
+                <span>Timothy P. Johnson</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot coauthor-dot"></span>
+                <span>Co-Author</span>
               </div>
             </div>
             <div class="timeline-helper-text">
-              <i data-lucide="info" style="width: 14px; height: 14px;"></i> Drag nodes to explore. Click a co-author node to filter the publications list to their shared works.
+              <i data-lucide="info" style="width: 14px; height: 14px;"></i> Click a co-author node to filter the publications list to their shared works.
             </div>
           </section>
         </div>

@@ -506,9 +506,12 @@ a:hover {
 
 .section-header h2 {
   font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 10px;
+  letter-spacing: -0.01em;
 }
 
 .section-header h2 i {
@@ -1372,20 +1375,14 @@ dialog[open]::backdrop {
 }
 
 .network-legend {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(8, 11, 17, 0.85);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border-glass);
-  padding: 12px 18px;
-  border-radius: var(--radius-md);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 10;
-  box-shadow: var(--glass-shadow);
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px 16px;
+  margin-top: 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  background: rgba(8, 11, 17, 0.5);
 }
 
 .legend-item {
