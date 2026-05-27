@@ -1,0 +1,83 @@
+{
+  "_comment": "Theme taxonomy for Dr. Timothy P. Johnson's body of work. Order matters: each pub is assigned EVERY matching theme (multi-label), with the FIRST match in this file taken as the primary `theme` for backward-compat with the existing visualizer code path. Keyword match is case-insensitive substring across title, abstract, and journal.",
+  "themes": [
+    {
+      "slug": "survey-methods",
+      "display": "Survey Methodology & Measurement",
+      "color": "#3b82f6",
+      "keywords": ["survey method", "response rate", "nonresponse", "questionnaire", "interviewer", "survey design", "measurement error", "psychometric", "scale validation", "response style", "social desirability", "self-report", "behavior coding", "cognitive interview", "weighting", "sampling", "response bias", "respondent", "mode effect"]
+    },
+    {
+      "slug": "cross-cultural",
+      "display": "Cross-Cultural Measurement",
+      "color": "#a855f7",
+      "keywords": ["cross-cultural", "cross cultural", "3mc", "multinational", "multicultural", "culturally", "cultural orientation", "translation", "language barrier", "race/ethnic", "racial/ethnic", "minority", "asian american", "african american", "hispanic", "latino", "latina", "latinx"]
+    },
+    {
+      "slug": "alcohol-drug",
+      "display": "Alcohol & Drug Misuse",
+      "color": "#f59e0b",
+      "keywords": ["alcohol", "drinking", "substance use", "substance misuse", "substance abuse", "drug use", "drug abuse", "drug misuse", "illicit drug", "opioid", "heroin", "cocaine", "marijuana", "cannabis", "binge"]
+    },
+    {
+      "slug": "tobacco",
+      "display": "Tobacco Use",
+      "color": "#ef4444",
+      "keywords": ["tobacco", "smoking", "smoker", "cigarette", "nicotine", "vaping", "e-cigarette", "secondhand smoke"]
+    },
+    {
+      "slug": "mental-health",
+      "display": "Mental Health",
+      "color": "#8b5cf6",
+      "keywords": ["depress", "anxiety", "mental health", "suicid", "psychiatric", "psychological distress", "ptsd", "trauma", "stigma", "loneliness", "stress"]
+    },
+    {
+      "slug": "cancer-screening",
+      "display": "Cancer Screening",
+      "color": "#10b981",
+      "keywords": ["cancer screen", "mammogra", "colorect", "colonoscopy", "cervical screen", "pap test", "psa test", "prostate screen", "breast cancer screen", "screening"]
+    },
+    {
+      "slug": "nutrition-pa",
+      "display": "Nutrition & Physical Activity",
+      "color": "#22c55e",
+      "keywords": ["nutrition", "diet", "obesity", "overweight", "bmi", "body mass", "physical activity", "exercise", "sedentary", "food insecurity", "fruit and vegetable"]
+    },
+    {
+      "slug": "homeless",
+      "display": "Homeless Persons",
+      "color": "#06b6d4",
+      "keywords": ["homeless", "housing instability", "unsheltered", "shelter"]
+    },
+    {
+      "slug": "immigrant-refugee",
+      "display": "Immigrants & Refugees",
+      "color": "#0ea5e9",
+      "keywords": ["immigrant", "refugee", "migrant", "foreign-born", "foreign born", "acculturation"]
+    },
+    {
+      "slug": "criminal-justice",
+      "display": "Criminal Justice",
+      "color": "#dc2626",
+      "keywords": ["criminal justice", "incarcerat", "arrest", "offender", "prison", "jail", "parole", "probation", "crime", "police", "court", "sentenc"]
+    },
+    {
+      "slug": "disadvantaged-health",
+      "display": "Health in Disadvantaged Populations",
+      "color": "#f97316",
+      "keywords": ["disadvantaged", "underserved", "vulnerable population", "low-income", "low income", "poverty", "health disparit", "disparities", "socioeconomic", "ses", "uninsured", "medicaid", "access to care", "social determinant"]
+    },
+    {
+      "slug": "public-health",
+      "display": "Public Health & Survey Science",
+      "color": "#0d9488",
+      "keywords": ["public health", "epidemiolog", "population health", "health behavior", "health risk", "behavioral risk factor", "brfss", "preventive", "community health"]
+    },
+    {
+      "slug": "general",
+      "display": "General Research",
+      "color": "#64748b",
+      "keywords": []
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+input OpenAlex pubs: 428
+kept (RG/Scholar matched): 276
+kept (heuristic, no source match): 0
+quarantined: 120
+  deny:denied: 10
+  kept:coauthor_network: 32
+  quarantined:unverified: 110
+
+final total_publications: 308
+years_span: 1982 - 2025
+total_coauthors: 634
+
+theme distribution (multi-label):
+  survey-methods: 143
+  disadvantaged-health: 140
+  alcohol-drug: 89
+  cross-cultural: 75
+  mental-health: 56
+  public-health: 50
+  general: 45
+  tobacco: 19
+  homeless: 18
+  immigrant-refugee: 14
+  cancer-screening: 13
+  nutrition-pa: 9
+  criminal-justice: 5

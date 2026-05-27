@@ -134,38 +134,76 @@
   </section>
 
   <!-- ===== Latest from Tim ===== -->
-  <section class="section section--tint">
+  <section class="section section--tint" id="news-section">
     <div class="wrap">
-      <div style="margin-bottom:36px;">
-        <span class="eyebrow">News</span>
-        <h2 class="section-title">Latest from Tim</h2>
+      <div style="margin-bottom:36px; text-align:center;">
+        <span class="eyebrow">News &amp; Media</span>
+        <h2 class="section-title">Latest Updates</h2>
       </div>
-      <div class="grid-3">
-        <div class="card news-item">
-          <span class="news-ic"><i data-lucide="briefcase"></i></span>
-          <div>
-            <div class="news-date">Recent</div>
-            <h4>Tim Johnson joins NORC</h4>
-            <p style="font-size:0.95rem;">Now serving as Senior Research Fellow at NORC at the University of Chicago.</p>
+      
+      <!-- Filter Tabs -->
+      <div class="news-filters" id="news-filters"></div>
+      
+      <!-- Dynamic Cards Grid (with fallback content) -->
+      <div class="news-grid" id="news-grid-root">
+        <!-- Fallback items for SEO / disabled JS -->
+        <article class="card news-card-item">
+          <div class="news-card-header">
+            <span class="news-badge badge-news">In the News</span>
+            <span class="news-card-date">May 19, 2026</span>
           </div>
-        </div>
-        <div class="card news-item">
-          <span class="news-ic"><i data-lucide="newspaper"></i></span>
-          <div>
-            <div class="news-date">Press</div>
-            <h4>Quoted: Cancer Therapy Advisor</h4>
-            <p style="font-size:0.95rem;">Featured for expertise on survey-based health research.</p>
+          <h3 class="news-card-title">
+            <a href="https://www.washingtonpost.com/ripple/2026/05/19/self-censorship-more-stress-tougher-recruiting-we-asked-us-researchers-how-the-trump-administrations-science-policies-have-affected-them/?itid=hp_brand_promo_1" target="_blank" rel="noopener" class="news-title-link">
+              Self-censorship, more stress, tougher recruiting: We asked U.S. researchers how the Trump administration’s science policies have affected them
+              <i data-lucide="external-link" class="link-ic"></i>
+            </a>
+          </h3>
+          <p class="news-card-snippet">Co-authored with Eric Welch, this SciOPS survey details the increase in self-censorship and career anxiety among U.S. academic scientists in response to recent science policies.</p>
+          <div class="news-card-footer">
+            <span class="news-source-label">Source:</span>
+            <span class="news-source-name">The Washington Post</span>
           </div>
-        </div>
-        <div class="card news-item">
-          <span class="news-ic"><i data-lucide="graduation-cap"></i></span>
-          <div>
-            <div class="news-date">Ongoing</div>
-            <h4>Professor Emeritus, UIC</h4>
-            <p style="font-size:0.95rem;">Continuing scholarship in survey methodology and social epidemiology.</p>
+        </article>
+
+        <article class="card news-card-item">
+          <div class="news-card-header">
+            <span class="news-badge badge-news">In the News</span>
+            <span class="news-card-date">May 19, 2026</span>
           </div>
-        </div>
+          <h3 class="news-card-title">
+            <a href="https://theconversation.com/self-censorship-more-stress-tougher-recruiting-we-asked-us-researchers-how-the-trump-administrations-science-policies-have-affected-them-280968" target="_blank" rel="noopener" class="news-title-link">
+              Self-censorship, more stress, tougher recruiting – we asked US researchers how the Trump administration’s science policies have affected them
+              <i data-lucide="external-link" class="link-ic"></i>
+            </a>
+          </h3>
+          <p class="news-card-snippet">Self-censorship, more stress, tougher recruiting – we asked US researchers how the Trump administration’s science policies have affected them. Featured in The Conversation.</p>
+          <div class="news-card-footer">
+            <span class="news-source-label">Source:</span>
+            <span class="news-source-name">The Conversation</span>
+          </div>
+        </article>
+
+        <article class="card news-card-item">
+          <div class="news-card-header">
+            <span class="news-badge badge-publication">Publication</span>
+            <span class="news-card-date">Nov 3, 2025</span>
+          </div>
+          <h3 class="news-card-title">
+            <a href="https://doi.org/10.20944/preprints202511.0110.v1" target="_blank" rel="noopener" class="news-title-link">
+              Sexual Harassment and the Risk of Chronic Disease in a Prospective Cohort Study
+              <i data-lucide="external-link" class="link-ic"></i>
+            </a>
+          </h3>
+          <p class="news-card-snippet">In a sample of university employees, we use longitudinal data to examine long-term effects of sexual harassment in the workplace on incidence of chronic disease. We also explore ...</p>
+          <div class="news-card-footer">
+            <span class="news-source-label">Source:</span>
+            <span class="news-source-name">Preprints.org</span>
+          </div>
+        </article>
       </div>
+      
+      <!-- Controls (Load More / Pagination) -->
+      <div class="news-controls-wrapper" id="news-controls"></div>
     </div>
   </section>
 
@@ -201,6 +239,8 @@
     </div>
   </footer>
 
+  <script src="assets/js/news-data.js"></script>
+  <script src="assets/js/news-component.js"></script>
   <script src="assets/js/site.js"></script>
 </body>
 </html>

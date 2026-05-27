@@ -766,11 +766,19 @@ a:hover {
 }
 
 /* Specific theme indicators */
-.paper-card.theme-survey-methods::after { background: #3b82f6; }
-.paper-card.theme-social-epi::after { background: #0d9488; }
-.paper-card.theme-substance-abuse::after { background: #f59e0b; }
-.paper-card.theme-covid-academia::after { background: #ec4899; }
-.paper-card.theme-cancer-health::after { background: #10b981; }
+.paper-card.theme-survey-methods::after        { background: #3b82f6; }
+.paper-card.theme-cross-cultural::after        { background: #a855f7; }
+.paper-card.theme-alcohol-drug::after          { background: #f59e0b; }
+.paper-card.theme-tobacco::after               { background: #ef4444; }
+.paper-card.theme-mental-health::after         { background: #8b5cf6; }
+.paper-card.theme-cancer-screening::after      { background: #10b981; }
+.paper-card.theme-nutrition-pa::after          { background: #22c55e; }
+.paper-card.theme-homeless::after              { background: #06b6d4; }
+.paper-card.theme-immigrant-refugee::after     { background: #0ea5e9; }
+.paper-card.theme-criminal-justice::after      { background: #dc2626; }
+.paper-card.theme-disadvantaged-health::after  { background: #f97316; }
+.paper-card.theme-public-health::after         { background: #0d9488; }
+.paper-card.theme-general::after               { background: #64748b; }
 
 .paper-header {
   display: flex;
@@ -846,11 +854,19 @@ a:hover {
   background: var(--bg-glass);
 }
 
-.theme-survey-methods .paper-theme-badge { background: rgba(59, 130, 246, 0.1); color: #93c5fd; }
-.theme-social-epi .paper-theme-badge { background: rgba(13, 148, 136, 0.1); color: #99f6e4; }
-.theme-substance-abuse .paper-theme-badge { background: rgba(245, 158, 11, 0.1); color: #fde68a; }
-.theme-covid-academia .paper-theme-badge { background: rgba(236, 72, 153, 0.1); color: #fbcfe8; }
-.theme-cancer-health .paper-theme-badge { background: rgba(16, 185, 129, 0.1); color: #a7f3d0; }
+.paper-theme-badge.theme-survey-methods       { background: rgba(59, 130, 246, 0.12);  color: #93c5fd; }
+.paper-theme-badge.theme-cross-cultural       { background: rgba(168, 85, 247, 0.12);  color: #d8b4fe; }
+.paper-theme-badge.theme-alcohol-drug         { background: rgba(245, 158, 11, 0.12);  color: #fde68a; }
+.paper-theme-badge.theme-tobacco              { background: rgba(239, 68, 68, 0.12);   color: #fca5a5; }
+.paper-theme-badge.theme-mental-health        { background: rgba(139, 92, 246, 0.12);  color: #c4b5fd; }
+.paper-theme-badge.theme-cancer-screening     { background: rgba(16, 185, 129, 0.12);  color: #a7f3d0; }
+.paper-theme-badge.theme-nutrition-pa         { background: rgba(34, 197, 94, 0.12);   color: #bbf7d0; }
+.paper-theme-badge.theme-homeless             { background: rgba(6, 182, 212, 0.12);   color: #a5f3fc; }
+.paper-theme-badge.theme-immigrant-refugee    { background: rgba(14, 165, 233, 0.12);  color: #bae6fd; }
+.paper-theme-badge.theme-criminal-justice     { background: rgba(220, 38, 38, 0.12);   color: #fecaca; }
+.paper-theme-badge.theme-disadvantaged-health { background: rgba(249, 115, 22, 0.12);  color: #fed7aa; }
+.paper-theme-badge.theme-public-health        { background: rgba(13, 148, 136, 0.12);  color: #99f6e4; }
+.paper-theme-badge.theme-general              { background: rgba(100, 116, 139, 0.12); color: #cbd5e1; }
 
 .read-more {
   font-size: 0.8rem;
@@ -1400,22 +1416,3 @@ dialog[open]::backdrop {
   border: 1px solid rgba(255,255,255,0.15);
 }
 
-
-
-/* Author filter suggestions */
-.author-suggestions {
-  margin-top: 8px;
-  max-height: 240px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.author-suggestion-empty {
-  font-size: 12px;
-  color: var(--text-secondary);
-  padding: 8px 10px;
-  opacity: 0.7;
-  font-style: italic;
-}

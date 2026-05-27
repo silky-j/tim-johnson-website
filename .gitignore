@@ -5,3 +5,9 @@
 # Local project to-do list / dashboard (not for the public site)
 TASKS.md
 dashboard.html
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+

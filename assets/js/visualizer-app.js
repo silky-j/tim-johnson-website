@@ -8,11 +8,9 @@ const state = {
     theme: 'all',
     year: null,
     coauthor: null,
-    author: null,
     journal: null,
     search: ''
   },
-  allAuthors: [],
   sort: 'newest',
   currentView: 'dashboard'
 };
@@ -30,10 +28,6 @@ const el = {
   coauthorsList: document.getElementById('coauthors-list'),
   journalsList: document.getElementById('journals-list'),
 
-  authorFilterInput: document.getElementById('author-filter-input'),
-  clearAuthorBtn: document.getElementById('clear-author-btn'),
-  authorSuggestions: document.getElementById('author-suggestions'),
-  
   timelineSvg: document.getElementById('timeline-svg'),
   resetTimelineBtn: document.getElementById('reset-timeline-btn'),
   
@@ -65,15 +59,29 @@ const el = {
 };
 
 // --- Theme Helpers ---
+// Mirrors curation/themes.json. Order matches the buttons in publications.html.
+const THEME_MAP = {
+  'survey-methods': 'Survey Methodology & Measurement',
+  'cross-cultural': 'Cross-Cultural Measurement',
+  'alcohol-drug': 'Alcohol & Drug Misuse',
+  'tobacco': 'Tobacco Use',
+  'mental-health': 'Mental Health',
+  'cancer-screening': 'Cancer Screening',
+  'nutrition-pa': 'Nutrition & Physical Activity',
+  'homeless': 'Homeless Persons',
+  'immigrant-refugee': 'Immigrants & Refugees',
+  'criminal-justice': 'Criminal Justice',
+  'disadvantaged-health': 'Health in Disadvantaged Populations',
+  'public-health': 'Public Health & Survey Science',
+  'general': 'General Research'
+};
 function getThemeDisplayName(theme) {
-  const map = {
-    'survey-methods': 'Survey Methodology',
-    'substance-abuse': 'Substance Use',
-    'covid-academia': 'COVID-19 & Academia',
-    'cancer-health': 'Cancer & Health Screening',
-    'social-epi': 'Social Epidemiology'
-  };
-  return map[theme] || 'General';
+  return THEME_MAP[theme] || 'General Research';
+}
+function paperThemes(paper) {
+  if (Array.isArray(paper.themes) && paper.themes.length) return paper.themes;
+  if (paper.theme) return [paper.theme];
+  return ['general'];
 }
 
 // --- Data Initialization ---
@@ -102,10 +110,6 @@ function loadGraphData(data) {
   state.coauthors = data.coauthors || [];
   state.network = data.network || { nodes: [], edges: [] };
   state.stats = data.stats || {};
-
-  state.allAuthors = [...new Set(
-    state.papers.flatMap(p => (p.authors || []).map(a => a.name))
-  )].sort((a, b) => a.localeCompare(b));
 
   renderGlobalStats();
   renderSidebarLists();
@@ -146,33 +150,6 @@ function renderSidebarLists() {
     `;
   }).join('');
   
-  lucide.createIcons();
-}
-
-function renderAuthorSuggestions(query) {
-  const q = (query || '').trim().toLowerCase();
-  if (!q) {
-    el.authorSuggestions.style.display = 'none';
-    el.authorSuggestions.innerHTML = '';
-    return;
-  }
-
-  const matches = state.allAuthors
-    .filter(name => name.toLowerCase().includes(q))
-    .slice(0, 15);
-
-  if (matches.length === 0) {
-    el.authorSuggestions.innerHTML = `<div class="author-suggestion-empty">No matching authors</div>`;
-    el.authorSuggestions.style.display = 'block';
-    return;
-  }
-
-  el.authorSuggestions.innerHTML = matches.map(name => `
-    <button class="list-item-btn" data-author="${name.replace(/"/g, '&quot;')}">
-      <span><i data-lucide="user" style="width: 12px; height: 12px; display: inline; vertical-align: middle; margin-right: 4px;"></i> ${name}</span>
-    </button>
-  `).join('');
-  el.authorSuggestions.style.display = 'flex';
   lucide.createIcons();
 }
 
@@ -553,25 +530,19 @@ function applyFilters() {
   let filtered = [...state.papers];
   
   if (state.filters.theme !== 'all') {
-    filtered = filtered.filter(p => p.theme === state.filters.theme);
+    filtered = filtered.filter(p => paperThemes(p).includes(state.filters.theme));
   }
-  
+
   if (state.filters.year !== null) {
     filtered = filtered.filter(p => p.year === state.filters.year);
     el.resetTimelineBtn.style.display = 'inline-block';
   } else {
     el.resetTimelineBtn.style.display = 'none';
   }
-  
+
   if (state.filters.coauthor !== null) {
     filtered = filtered.filter(p =>
       (p.authors || []).some(a => a.name === state.filters.coauthor)
-    );
-  }
-
-  if (state.filters.author !== null) {
-    filtered = filtered.filter(p =>
-      (p.authors || []).some(a => a.name === state.filters.author)
     );
   }
 
@@ -628,9 +599,6 @@ function updateActiveFiltersBar() {
   if (state.filters.coauthor !== null) {
     activeTags.push({ key: 'coauthor', label: `Co-Author: ${state.filters.coauthor}` });
   }
-  if (state.filters.author !== null) {
-    activeTags.push({ key: 'author', label: `Author: ${state.filters.author}` });
-  }
   if (state.filters.journal !== null) {
     activeTags.push({ key: 'journal', label: `Journal: ${state.filters.journal.length > 20 ? state.filters.journal.substring(0, 18) + '...' : state.filters.journal}` });
   }
@@ -671,8 +639,9 @@ function renderPapersGrid(papers) {
   el.emptyState.style.display = 'none';
   
   el.papersGrid.innerHTML = papers.map(paper => {
-    const cardClass = `paper-card theme-${paper.theme || 'general'}`;
-    const badgesHtml = `<span class="paper-theme-badge">${getThemeDisplayName(paper.theme)}</span>`;
+    const themes = paperThemes(paper);
+    const cardClass = `paper-card theme-${themes[0] || 'general'}`;
+    const badgesHtml = themes.map(t => `<span class="paper-theme-badge theme-${t}">${getThemeDisplayName(t)}</span>`).join('');
     
     const authorsDisplay = (paper.authors || []).map(a => a.name).join(', ');
     
@@ -766,11 +735,6 @@ function clearFilter(key) {
     state.filters[key] = null;
     if (key === 'year') {
       renderTimeline();
-    } else if (key === 'author') {
-      el.authorFilterInput.value = '';
-      el.clearAuthorBtn.style.display = 'none';
-      el.authorSuggestions.style.display = 'none';
-      el.authorSuggestions.innerHTML = '';
     } else {
       renderSidebarLists();
     }
@@ -782,20 +746,15 @@ function clearAllFilters() {
   state.filters.theme = 'all';
   state.filters.year = null;
   state.filters.coauthor = null;
-  state.filters.author = null;
   state.filters.journal = null;
   state.filters.search = '';
 
   el.searchInput.value = '';
-  el.authorFilterInput.value = '';
-  el.clearAuthorBtn.style.display = 'none';
-  el.authorSuggestions.style.display = 'none';
-  el.authorSuggestions.innerHTML = '';
-  
+
   el.themeFilters.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('data-theme') === 'all');
   });
-  
+
   renderSidebarLists();
   renderTimeline();
   applyFilters();
@@ -842,51 +801,6 @@ function setupEventListeners() {
     el.searchInput.value = '';
     state.filters.search = '';
     applyFilters();
-  });
-
-  // Author filter input
-  el.authorFilterInput.addEventListener('input', (e) => {
-    const value = e.target.value;
-    el.clearAuthorBtn.style.display = value ? 'flex' : 'none';
-    if (state.filters.author !== null && value !== state.filters.author) {
-      state.filters.author = null;
-      applyFilters();
-    }
-    renderAuthorSuggestions(value);
-  });
-
-  el.authorFilterInput.addEventListener('focus', () => {
-    if (el.authorFilterInput.value && state.filters.author === null) {
-      renderAuthorSuggestions(el.authorFilterInput.value);
-    }
-  });
-
-  el.authorSuggestions.addEventListener('click', (e) => {
-    const btn = e.target.closest('.list-item-btn');
-    if (!btn) return;
-    const name = btn.getAttribute('data-author');
-    state.filters.author = name;
-    el.authorFilterInput.value = name;
-    el.authorSuggestions.style.display = 'none';
-    el.authorSuggestions.innerHTML = '';
-    el.clearAuthorBtn.style.display = 'flex';
-    applyFilters();
-  });
-
-  el.clearAuthorBtn.addEventListener('click', () => {
-    el.authorFilterInput.value = '';
-    el.authorSuggestions.style.display = 'none';
-    el.authorSuggestions.innerHTML = '';
-    el.clearAuthorBtn.style.display = 'none';
-    state.filters.author = null;
-    applyFilters();
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('#author-filter-input') &&
-        !e.target.closest('#author-suggestions')) {
-      el.authorSuggestions.style.display = 'none';
-    }
   });
 
   // Co-authors list clicks
