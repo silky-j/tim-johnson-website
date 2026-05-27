@@ -18,6 +18,24 @@
     el.textContent = new Date().getFullYear();
   });
 
+  // Back-to-top button
+  const backToTop = document.createElement('button');
+  backToTop.type = 'button';
+  backToTop.className = 'back-to-top';
+  backToTop.setAttribute('aria-label', 'Back to top');
+  backToTop.innerHTML = '<i data-lucide="arrow-up"></i>';
+  document.body.appendChild(backToTop);
+
+  const updateBackToTop = () => {
+    backToTop.classList.toggle('is-visible', window.scrollY > 400);
+  };
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  updateBackToTop();
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   // Render Lucide icons if available
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons();
