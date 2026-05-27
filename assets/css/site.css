@@ -241,13 +241,13 @@ ul { list-style: none; }
 .highlight-list strong { color: var(--ink); font-weight: 600; }
 
 /* Testimonials */
-.quote-card { position: relative; }
+.quote-card { position: relative; display: flex; flex-direction: column; text-align: center; }
 .quote-card .q-mark {
   font-family: 'Outfit', sans-serif; font-size: 3rem; line-height: 1; color: var(--violet-soft);
   font-weight: 800; margin-bottom: -6px;
 }
-.quote-card blockquote { font-size: 1.06rem; color: var(--ink); font-style: italic; }
-.quote-card .q-by { margin-top: 16px; font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--ink); }
+.quote-card blockquote { flex: 1; font-size: 1.06rem; color: var(--ink); font-style: italic; }
+.quote-card .q-by { margin-top: auto; padding-top: 16px; font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--ink); }
 .quote-card .q-role { font-size: 0.86rem; color: var(--ink-muted); }
 
 /* News / Latest feed */
