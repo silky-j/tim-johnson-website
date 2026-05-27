@@ -1401,3 +1401,21 @@ dialog[open]::backdrop {
 }
 
 
+
+/* Author filter suggestions */
+.author-suggestions {
+  margin-top: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.author-suggestion-empty {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 8px 10px;
+  opacity: 0.7;
+  font-style: italic;
+}

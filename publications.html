@@ -132,6 +132,21 @@
           </div>
         </div>
 
+        <!-- Filter by Author -->
+        <div class="filter-card">
+          <h3>Filter by Author</h3>
+          <div class="search-wrapper">
+            <i data-lucide="user" class="search-icon"></i>
+            <input type="text" id="author-filter-input" placeholder="Search any author..." autocomplete="off">
+            <button id="clear-author-btn" class="clear-btn" aria-label="Clear author filter" style="display: none;">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="author-suggestions" id="author-suggestions" style="display: none;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
         <!-- Top Co-Authors -->
         <div class="filter-card">
           <h3>Frequent Co-Authors</h3>
