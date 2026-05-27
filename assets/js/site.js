@@ -36,6 +36,15 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  // Accordion
+  document.querySelectorAll('.accordion-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.nextElementSibling.classList.toggle('is-open', !expanded);
+    });
+  });
+
   // Render Lucide icons if available
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons();

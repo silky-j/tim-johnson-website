@@ -271,7 +271,8 @@ ul { list-style: none; }
 }
 .page-head h1 { font-size: clamp(2rem, 4vw, 3rem); margin: 12px 0 10px; }
 .page-head .lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 64ch; }
-.page-head-grid { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.page-head-grid { display: grid; grid-template-columns: 1.25fr 0.9fr; gap: 48px; align-items: center; }
+.page-head-grid .about-photo-rect-wrap { justify-self: center; }
 
 .prose p { margin-bottom: 18px; font-size: 1.06rem; }
 .prose p:last-child { margin-bottom: 0; }
@@ -285,11 +286,11 @@ ul { list-style: none; }
 .fact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; }
 .fact-card h3 { font-size: 1.02rem; padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 9px; }
 .fact-card h3 i, .fact-card h3 svg { width: 18px; height: 18px; color: var(--violet); }
-.fact-card .fact-body { padding: 8px 22px 18px; }
-.fact-card .fact-body li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
-.fact-card .fact-body li:last-child { border-bottom: 0; }
-.fact-card .fact-body .t { font-weight: 600; color: var(--ink); display: block; }
-.fact-card .fact-body .s { font-size: 0.9rem; color: var(--ink-muted); }
+.fact-body { padding: 8px 22px 18px; }
+.fact-body li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.fact-body li:last-child { border-bottom: 0; }
+.fact-body .t { font-weight: 600; color: var(--ink); display: block; }
+.fact-body .s { font-size: 0.9rem; color: var(--ink-muted); }
 .fact-card + .fact-card { margin-top: 22px; }
 
 /* Timeline (education) */
@@ -311,6 +312,59 @@ ul { list-style: none; }
   padding: 6px 13px; border-radius: 999px; background: var(--violet-soft); color: var(--violet-ink);
 }
 .chip.teal { background: var(--teal-soft); color: var(--teal-ink); }
+.chip.chapter { background: #fef3c7; color: #92400e; }
+
+/* ============================================================
+   About page — Accordion sidebar
+   ============================================================ */
+.accordion {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+.accordion-item + .accordion-item { border-top: 1px solid var(--border); }
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: left;
+  transition: background 0.18s var(--ease);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.accordion-trigger:hover,
+.accordion-trigger[aria-expanded="true"] { background: var(--bg-alt); }
+.accordion-trigger .acc-icon {
+  color: var(--violet);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.accordion-trigger .acc-icon i,
+.accordion-trigger .acc-icon svg { width: 17px; height: 17px; }
+.accordion-chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--ink-muted);
+  transition: transform 0.25s var(--ease);
+}
+.accordion-trigger[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+.accordion-body { display: none; border-top: 1px solid var(--border); }
+.accordion-body.is-open { display: block; }
+.accordion-body .fact-body { padding: 6px 18px 14px; }
 
 /* ============================================================
    Books page
