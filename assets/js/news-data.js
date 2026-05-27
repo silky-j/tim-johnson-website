@@ -1,5 +1,5 @@
 // Compiled News & Publications for Timothy P. Johnson
-// Generated on 2026-05-27 14:04:06
+// Generated on 2026-05-27 19:52:01
 window.NEWS_DATA = [
   {
     "title": "Self-censorship, more stress, tougher recruiting: We asked U.S. researchers how the Trump administration’s science policies have affected them",
@@ -18,12 +18,12 @@ window.NEWS_DATA = [
     "snippet": "Self-censorship, more stress, tougher recruiting – we asked US researchers how the Trump administration’s science policies have affected them  The Conversation..."
   },
   {
-    "title": "Sexual Harassment and the Risk of Chronic Disease in a Prospective Cohort Study",
-    "url": "https://doi.org/10.20944/preprints202511.0110.v1",
-    "date": "2025-11-03",
-    "source": "Preprints.org",
+    "title": "Workplace Sexual Harassment and the Risk of Chronic Disease in a Prospective Cohort Study",
+    "url": "https://doi.org/10.3390/bs16020223",
+    "date": "2026-02-03",
+    "source": "Behavioral Sciences",
     "category": "publication",
-    "snippet": "In a sample of university employees, we use longitudinal data to examine long-term ef-fects of sexual harassment in the workplace on incidence of chronic disease. We also ex-plore ..."
+    "snippet": "Using 23 years of longitudinal follow-up data from university employees, higher baseline workplace sexual harassment scores were predictive of chronic disease incidence — published in Behavioral Sciences, Vol. 16(2)."
   },
   {
     "title": "Profiles of economic and non-economic chronic stressors at midlife",
@@ -32,6 +32,14 @@ window.NEWS_DATA = [
     "source": "Journal of Applied Developmental Psychology",
     "category": "publication",
     "snippet": "Research paper published in Journal of Applied Developmental Psychology addressing survey research themes."
+  },
+  {
+    "title": "Using Experimental Vignettes to Study how Survey Methods and Findings Affect the Public’s Evaluation of Public Opinion Polls",
+    "url": "https://doi.org/10.18148/srm/2025.v19i3.8261",
+    "date": "2025-10-15",
+    "source": "Survey Research Methods",
+    "category": "publication",
+    "snippet": "Holbrook, Lavrakas, Johnson et al. examine how survey design and findings shape public trust in polls, finding support for both scientific literacy and motivated reasoning models. Survey Research Methods, Vol. 19(3), pp. 335–353."
   },
   {
     "title": "Social support is not enough to buffer the effects of stressors on substance use at midlife",
@@ -74,6 +82,22 @@ window.NEWS_DATA = [
     "snippet": "Research paper published in Social Psychiatry and Psychiatric Epidemiology addressing survey research themes."
   },
   {
+    "title": "Dr. Timothy Johnson Joins the Research Team at the Great Cities Institute",
+    "url": "https://greatcities.uic.edu/news-stories/dr-timothy-johnson-joins-the-research-team-at-the-great-cities-institute/",
+    "date": "2025-03-10",
+    "source": "UIC Great Cities Institute",
+    "category": "news",
+    "snippet": "Dr. Johnson joins UIC’s Great Cities Institute as Senior Fellow and Research Specialist, bringing over 35 years of survey methodology expertise and former directorship of the UIC Survey Research Laboratory."
+  },
+  {
+    "title": "Economic stressors, alcohol use, and health-related quality of life in middle-aged adults",
+    "url": "https://doi.org/10.1016/j.appdev.2024.101752",
+    "date": "2025-03-01",
+    "source": "Journal of Applied Developmental Psychology",
+    "category": "publication",
+    "snippet": "Explores associations between economic stressors, community disadvantage, alcohol use, and physical and mental health-related quality of life in a national sample of 1,359 adults aged 40–61."
+  },
+  {
     "title": "LAPS SA: Measuring Attachment to Dogs and Cats Among South American Countries",
     "url": "https://doi.org/10.1177/00332941251315072",
     "date": "2025-01-28",
@@ -103,7 +127,7 @@ window.NEWS_DATA = [
     "date": "2023-05-17",
     "source": "AAPOR",
     "category": "award",
-    "snippet": "Timothy P. Johnson was awarded the AAPOR Award for Exceptionally Distinguished Achievement, the association's highest honor, recognizing outstanding career contributions."
+    "snippet": "Timothy P. Johnson was awarded the AAPOR Award for Exceptionally Distinguished Achievement, the association’s highest honor, recognizing outstanding career contributions."
   },
   {
     "title": "Surveys of scientists show women and young academics suffered most during pandemic and may face long-term career consequences",

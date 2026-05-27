@@ -31,14 +31,52 @@ CURATED_ITEMS = [
         "snippet": "Co-authored with Eric Welch, this SciOPS survey details the increase in self-censorship and career anxiety among U.S. academic scientists in response to recent science policies."
     },
     {
+        "title": "Workplace Sexual Harassment and the Risk of Chronic Disease in a Prospective Cohort Study",
+        "url": "https://doi.org/10.3390/bs16020223",
+        "date": "2026-02-03",
+        "source": "Behavioral Sciences",
+        "category": "publication",
+        "snippet": "Using 23 years of longitudinal follow-up data from university employees, higher baseline workplace sexual harassment scores were predictive of chronic disease incidence — published in Behavioral Sciences, Vol. 16(2)."
+    },
+    {
+        "title": "Using Experimental Vignettes to Study how Survey Methods and Findings Affect the Public’s Evaluation of Public Opinion Polls",
+        "url": "https://doi.org/10.18148/srm/2025.v19i3.8261",
+        "date": "2025-10-15",
+        "source": "Survey Research Methods",
+        "category": "publication",
+        "snippet": "Holbrook, Lavrakas, Johnson et al. examine how survey design and findings shape public trust in polls, finding support for both scientific literacy and motivated reasoning models. Survey Research Methods, Vol. 19(3), pp. 335–353."
+    },
+    {
+        "title": "Economic stressors, alcohol use, and health-related quality of life in middle-aged adults",
+        "url": "https://doi.org/10.1016/j.appdev.2024.101752",
+        "date": "2025-03-01",
+        "source": "Journal of Applied Developmental Psychology",
+        "category": "publication",
+        "snippet": "Explores associations between economic stressors, community disadvantage, alcohol use, and physical and mental health-related quality of life in a national sample of 1,359 adults aged 40–61."
+    },
+    {
+        "title": "Dr. Timothy Johnson Joins the Research Team at the Great Cities Institute",
+        "url": "https://greatcities.uic.edu/news-stories/dr-timothy-johnson-joins-the-research-team-at-the-great-cities-institute/",
+        "date": "2025-03-10",
+        "source": "UIC Great Cities Institute",
+        "category": "news",
+        "snippet": "Dr. Johnson joins UIC’s Great Cities Institute as Senior Fellow and Research Specialist, bringing over 35 years of survey methodology expertise and former directorship of the UIC Survey Research Laboratory."
+    },
+    {
         "title": "Timothy Johnson Named 2023 AAPOR Award Winner",
         "url": "https://aapor.org/announcements/timothy-johnson-named-2023-aapor-award-winner/",
         "date": "2023-05-17",
         "source": "AAPOR",
         "category": "award",
-        "snippet": "Timothy P. Johnson was awarded the AAPOR Award for Exceptionally Distinguished Achievement, the association's highest honor, recognizing outstanding career contributions."
+        "snippet": "Timothy P. Johnson was awarded the AAPOR Award for Exceptionally Distinguished Achievement, the association’s highest honor, recognizing outstanding career contributions."
     }
 ]
+
+# URLs superseded by a newer/published version — excluded from the merged output
+# to avoid showing both a preprint and its peer-reviewed counterpart.
+SUPERSEDED_URLS = {
+    "https://doi.org/10.20944/preprints202511.0110.v1",  # published as Behavioral Sciences doi:10.3390/bs16020223
+}
 
 RELEVANT_KEYWORDS = [
     "survey", "poll", "opinion", "methodology", "UIC", "NORC", "AAPOR", 
@@ -210,11 +248,15 @@ def main():
     # 3. Combine with curated list
     all_items = CURATED_ITEMS.copy()
     
-    # Deduplicate and merge
+    # Deduplicate and merge; skip superseded preprint/draft URLs
+    superseded = {u.lower() for u in SUPERSEDED_URLS}
     urls_seen = {c["url"].split("?")[0].lower() for c in all_items}
-    
+
     for item in news_items + pub_items:
         clean_url = item["url"].split("?")[0].lower()
+        if clean_url in superseded:
+            print(f"  Skipping superseded URL: {item['url']}")
+            continue
         if clean_url not in urls_seen:
             urls_seen.add(clean_url)
             all_items.append(item)
