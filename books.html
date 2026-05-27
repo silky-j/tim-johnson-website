@@ -105,15 +105,26 @@
       function cardHTML(b) {
         const pub = [b.inBook ? 'In: ' + esc(b.inBook) : null, b.publisher ? esc(b.publisher) : null]
           .filter(Boolean).join(' · ');
+        const linkHTML = b.url ? 
+          '<div class="book-link-wrapper">' +
+            '<a href="' + b.url + '" target="_blank" rel="noopener" class="book-action-link">' +
+              '<span>' + (b.forthcoming ? 'Pre-order / Details' : 'Publisher Page') + '</span>' +
+              '<i data-lucide="external-link"></i>' +
+            '</a>' +
+          '</div>' : '';
+
         return (
           '<article class="card book-card">' +
             '<div class="book-top">' +
               '<span class="book-tag ' + b.kind + '">' + KIND_LABEL[b.kind] + '</span>' +
-              '<span class="book-year">' + b.year + '</span>' +
+              '<span class="book-year">' + (b.forthcoming ? b.year + ' (Forthcoming)' : b.year) + '</span>' +
             '</div>' +
             '<h3>' + esc(b.title) + '</h3>' +
             '<p class="book-auth">' + esc(b.authors) + '</p>' +
-            (pub ? '<p class="book-pub">' + pub + '</p>' : '') +
+            '<div class="book-footer">' +
+              (pub ? '<p class="book-pub">' + pub + '</p>' : '') +
+              linkHTML +
+            '</div>' +
           '</article>'
         );
       }

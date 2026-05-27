@@ -329,7 +329,37 @@ ul { list-style: none; }
 .book-card .book-year { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--ink-muted); }
 .book-card h3 { font-size: 1.12rem; margin-bottom: 8px; }
 .book-card .book-auth { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 6px; }
-.book-card .book-pub { font-size: 0.86rem; color: var(--ink-muted); margin-top: auto; padding-top: 10px; }
+.book-card .book-pub { font-size: 0.86rem; color: var(--ink-muted); }
+
+.book-card .book-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--violet);
+  width: fit-content;
+  transition: all 0.2s var(--ease);
+}
+
+.book-action-link:hover {
+  color: var(--violet-ink);
+  transform: translateX(3px);
+}
+
+.book-action-link i, .book-action-link svg {
+  width: 14px;
+  height: 14px;
+}
 
 /* ============================================================
    Footer (shared)

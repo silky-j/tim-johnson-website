@@ -7,6 +7,8 @@ window.BOOKS = [
     title: 'Asking Questions: The Definitive Guide to Questionnaire Design (3rd Edition)',
     authors: 'Norman M. Bradburn, Michael J. Stern, Timothy P. Johnson',
     publisher: 'Wiley',
+    forthcoming: true,
+    url: 'https://www.wiley.com/en-us/Asking+Questions%3A+The+Definitive+Guide+to+Questionnaire+Design%2C+3rd+Edition-p-9781119150992',
   },
   {
     year: 2020, kind: 'chapter',
@@ -14,6 +16,7 @@ window.BOOKS = [
     authors: 'H. Silber, T. P. Johnson',
     inBook: 'Understanding Survey Methodology (ed. P. S. Brenner)',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-030-47256-6',
   },
   {
     year: 2020, kind: 'chapter',
@@ -21,6 +24,7 @@ window.BOOKS = [
     authors: 'K. M. Meitinger, T. P. Johnson',
     inBook: 'Understanding Survey Methodology (ed. P. S. Brenner)',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-030-47256-6',
   },
 
   // ---------------- 2010–2019 ----------------
@@ -29,18 +33,22 @@ window.BOOKS = [
     title: 'Race- and Ethnicity-of-Interviewer Effects',
     authors: 'A. L. Holbrook, T. P. Johnson, M. Krysan',
     inBook: 'Experimental Methods in Survey Research',
+    url: 'https://www.wiley.com/en-us/Experimental+Methods+in+Survey+Research%3A+Techniques+that+Combine+Random+Sampling+with+Random+Assignment-p-9781119083740',
   },
   {
     year: 2019, kind: 'chapter',
-    title: 'Survey Experiments and Changes in Question Wording',
+    title: 'Survey Experiments and Changes in Question Wording in Repeated Cross-Sectional Surveys',
     authors: 'A. L. Holbrook, D. Sterrett, A. W. Crosby, M. Stavrakantonaki, X. Wang, T. Zhao, T. P. Johnson',
-    inBook: 'Repeated Cross-Sectional Surveys',
+    inBook: 'Experimental Methods in Survey Research',
+    publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Experimental+Methods+in+Survey+Research%3A+Techniques+that+Combine+Random+Sampling+with+Random+Assignment-p-9781119083740',
   },
   {
     year: 2018, kind: 'edited',
     title: 'Advances in Comparative Survey Methods: Multinational, Multiregional, and Multicultural Contexts (3MC)',
     authors: 'Eds. Timothy P. Johnson, Beth-Ellen Pennell, Ineke A. L. Stoop, Brita Dorer',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Advances+in+Comparative+Survey+Methods%3A+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts+%283MC%29-p-9781118884973',
   },
   {
     year: 2018, kind: 'chapter',
@@ -48,6 +56,7 @@ window.BOOKS = [
     authors: 'Timothy P. Johnson, Beth-Ellen Pennell, Ineke A. L. Stoop, Brita Dorer',
     inBook: 'Advances in Comparative Survey Methods: Multinational, Multiregional, and Multicultural Contexts (3MC)',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Advances+in+Comparative+Survey+Methods%3A+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts+%283MC%29-p-9781118884973',
   },
   {
     year: 2018, kind: 'chapter',
@@ -55,6 +64,7 @@ window.BOOKS = [
     authors: 'E. Kapousouz, T. P. Johnson, A. L. Holbrook',
     inBook: 'Advances in Comparative Survey Methods: Multinational, Multiregional, and Multicultural Contexts (3MC)',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Advances+in+Comparative+Survey+Methods%3A+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts+%283MC%29-p-9781118884973',
   },
   {
     year: 2018, kind: 'chapter',
@@ -62,6 +72,7 @@ window.BOOKS = [
     authors: 'M. Braun, T. P. Johnson, E. Davidov, P. Schmidt, B. Meuleman',
     inBook: 'Cross-Cultural Analysis: Methods and Applications, 2nd Edition (eds. E. Davidov, P. Schmidt, J. Billiet, B. Meuleman)',
     publisher: 'Routledge',
+    url: 'https://www.routledge.com/Cross-Cultural-Analysis-Methods-and-Applications-Second-Edition/Davidov-Schmidt-Billiet-Meuleman/p/book/9781138690271',
   },
   {
     year: 2017, kind: 'chapter',
@@ -69,6 +80,7 @@ window.BOOKS = [
     authors: 'T. P. Johnson, T. W. Smith',
     inBook: 'Seeing Cities Through Big Data',
     publisher: 'Springer Geography, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-40902-3',
   },
   {
     year: 2017, kind: 'chapter',
@@ -76,6 +88,7 @@ window.BOOKS = [
     authors: 'M. Fendrich, T. P. Johnson, J. Becker',
     inBook: 'Research Methods in the Study of Substance Abuse',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-55980-3',
   },
   {
     year: 2017, kind: 'chapter',
@@ -83,6 +96,7 @@ window.BOOKS = [
     authors: 'T. P. Johnson, J. B. VanGeest',
     inBook: 'Research Methods in the Study of Substance Abuse',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-55980-3',
   },
   {
     year: 2017, kind: 'chapter',
@@ -90,6 +104,7 @@ window.BOOKS = [
     authors: 'T. P. Johnson, J. B. VanGeest',
     inBook: 'Research Methods in the Study of Substance Abuse',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-55980-3',
   },
   {
     year: 2017, kind: 'chapter',
@@ -97,24 +112,28 @@ window.BOOKS = [
     authors: 'J. B. VanGeest, T. P. Johnson, S. A. Alemagno',
     inBook: 'Research Methods in the Study of Substance Abuse',
     publisher: 'Springer, Cham',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-55980-3',
   },
   {
     year: 2017, kind: 'edited',
     title: 'Research Methods in the Study of Substance Abuse',
     authors: 'Eds. Jonathan B. VanGeest, Timothy P. Johnson, Sonia A. Alemagno',
     publisher: 'Springer',
+    url: 'https://link.springer.com/book/10.1007/978-3-319-55980-3',
   },
   {
     year: 2014, kind: 'edited',
     title: 'Hard-to-Survey Populations',
     authors: 'Eds. R. Tourangeau, B. Edwards, T. Johnson, K. Wolter, N. Bates',
     publisher: 'Cambridge University Press',
+    url: 'https://www.cambridge.org/core/books/hardtosurvey-populations/2B98028D5D5514E62F162602FEA4D620',
   },
   {
     year: 2014, kind: 'edited',
     title: 'Handbook of Health Survey Methods',
     authors: 'Ed. Timothy P. Johnson',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Handbook+of+Health+Survey+Methods-p-9781118400012',
   },
   {
     year: 2014, kind: 'chapter',
@@ -122,12 +141,14 @@ window.BOOKS = [
     authors: 'Timothy P. Johnson',
     inBook: 'Handbook of Health Survey Methods',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Handbook+of+Health+Survey+Methods-p-9781118400012',
   },
   {
     year: 2014, kind: 'chapter',
     title: 'Surveys of Physicians',
     authors: 'J. B. VanGeest, T. J. Beebe, T. P. Johnson',
     inBook: 'Handbook of Health Survey Methods',
+    url: 'https://www.wiley.com/en-us/Handbook+of+Health+Survey+Methods-p-9781118400012',
   },
   {
     year: 2014, kind: 'chapter',
@@ -135,18 +156,21 @@ window.BOOKS = [
     authors: 'Timothy P. Johnson, Allyson L. Holbrook, Keith Atterberry',
     inBook: 'Hard-to-Survey Populations',
     publisher: 'Cambridge University Press',
+    url: 'https://www.cambridge.org/core/books/hardtosurvey-populations/2B98028D5D5514E62F162602FEA4D620',
   },
   {
     year: 2011, kind: 'chapter',
     title: 'Some Issues in the Application of Latent Class Models for Questionnaire Design',
     authors: 'J. A. Harkness, T. P. Johnson',
     inBook: 'Question Evaluation Methods',
+    url: 'https://www.wiley.com/en-us/Question+Evaluation+Methods%3A+Contributing+to+the+Science+of+Data+Quality-p-9780470579640',
   },
   {
     year: 2010, kind: 'edited',
     title: 'Survey Methods in Multinational, Multiregional, and Multicultural Contexts',
     authors: 'Eds. J. A. Harkness, M. Braun, B. Edwards, T. P. Johnson, L. E. Lyberg, P. Ph. Mohler, B.-E. Pennell, T. W. Smith',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Survey+Methods+in+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts-p-9780470180693',
   },
   {
     year: 2010, kind: 'chapter',
@@ -154,18 +178,21 @@ window.BOOKS = [
     authors: 'J. A. Harkness, B. Edwards, M. Braun, T. P. Johnson, L. E. Lyberg, P. Ph. Mohler, B.-E. Pennell, T. W. Smith',
     inBook: 'Survey Methods in Multinational, Multiregional, and Multicultural Contexts',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Survey+Methods+in+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts-p-9780470180693',
   },
   {
     year: 2010, kind: 'chapter',
     title: 'An Illustrative Review of Techniques for Detecting Inequivalences',
     authors: 'M. Braun, T. P. Johnson',
     inBook: 'Survey Methods in Multinational, Multiregional, and Multicultural Contexts',
+    url: 'https://www.wiley.com/en-us/Survey+Methods+in+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts-p-9780470180693',
   },
   {
     year: 2010, kind: 'chapter',
     title: 'Equivalence, Comparability, and Methodological Progress',
     authors: 'P. Ph. Mohler, T. P. Johnson',
     inBook: 'Survey Methods in Multinational, Multiregional, and Multicultural Contexts',
+    url: 'https://www.wiley.com/en-us/Survey+Methods+in+Multinational%2C+Multiregional%2C+and+Multicultural+Contexts-p-9780470180693',
   },
   {
     year: 2010, kind: 'chapter',
@@ -173,6 +200,7 @@ window.BOOKS = [
     authors: 'T. P. Johnson, S. Shavitt, A. Holbrook',
     inBook: 'Cross-Cultural Research Methods in Psychology',
     publisher: 'Cambridge University Press',
+    url: 'https://www.cambridge.org/core/books/crosscultural-research-methods-in-psychology/B1B476483526543A9A32DFEDDFFA6BCE',
   },
 
   // ---------------- 2000–2009 ----------------
@@ -182,6 +210,7 @@ window.BOOKS = [
     authors: 'Timothy P. Johnson, Fons J. R. van de Vijver',
     inBook: 'Cross-Cultural Survey Methods (eds. J. A. Harkness, F. J. R. van de Vijver, P. Ph. Mohler)',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Cross-Cultural+Survey+Methods-p-9780471385264',
   },
   {
     year: 2003, kind: 'chapter',
@@ -189,6 +218,7 @@ window.BOOKS = [
     authors: 'Janet A. Harkness, Fons J. R. van de Vijver, Timothy P. Johnson',
     inBook: 'Cross-Cultural Survey Methods (eds. J. A. Harkness, F. J. R. van de Vijver, P. Ph. Mohler)',
     publisher: 'Wiley',
+    url: 'https://www.wiley.com/en-us/Cross-Cultural+Survey+Methods-p-9780471385264',
   },
   {
     year: 2001, kind: 'chapter',
@@ -196,6 +226,7 @@ window.BOOKS = [
     authors: 'T. P. Johnson, J. A. Parsons, S. Baum, G. Hendershot',
     inBook: 'Research in Social Science and Disability (eds. S. N. Barnartt, B. M. Altman)',
     publisher: 'JAI Press',
+    url: 'https://www.emerald.com/insight/publication/issn/1479-3547/vol/2',
   },
 
   // ---------------- 1990–1999 ----------------
@@ -204,5 +235,6 @@ window.BOOKS = [
     title: 'Social Cognition and Responses to Survey Questions Among Culturally Diverse Populations',
     authors: 'T. P. Johnson, D. O’Rourke, N. Chavez, S. Sudman, R. Warnecke, L. Lacey, J. Horm',
     inBook: 'Survey Measurement and Process Quality',
+    url: 'https://www.wiley.com/en-us/Survey+Measurement+and+Process+Quality-p-9780471165590',
   },
 ];
