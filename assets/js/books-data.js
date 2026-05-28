@@ -233,7 +233,7 @@ window.BOOKS = [
   {
     year: 1997, kind: 'chapter',
     title: 'Social Cognition and Responses to Survey Questions Among Culturally Diverse Populations',
-    authors: 'T. P. Johnson, D. O’Rourke, N. Chavez, S. Sudman, R. Warnecke, L. Lacey, J. Horm',
+    authors: 'T. P. Johnson, D. O'Rourke, N. Chavez, S. Sudman, R. Warnecke, L. Lacey, J. Horm',
     inBook: 'Survey Measurement and Process Quality',
     url: 'https://www.wiley.com/en-us/Survey+Measurement+and+Process+Quality-p-9780471165590',
   },
