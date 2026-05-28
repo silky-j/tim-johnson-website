@@ -6,6 +6,9 @@
 TASKS.md
 dashboard.html
 
+# Credentials — never commit
+curation/.env
+
 # Virtual environments
 .venv/
 venv/
