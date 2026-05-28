@@ -1,6 +1,6 @@
 // News & Publications Component Controller for Timothy P. Johnson
 (function () {
-  const root = document.getElementById('news-root');
+  const root = document.getElementById('news-grid-root');
   if (!root) return;
 
   // State variables
