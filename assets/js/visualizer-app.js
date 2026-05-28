@@ -43,7 +43,6 @@ const el = {
   emptyState: document.getElementById('empty-state'),
   emptyResetBtn: document.getElementById('empty-reset-btn'),
   
-  totalCitations: document.getElementById('stat-total-citations'),
   citationsSvg: document.getElementById('citations-svg'),
   topCitedGrid: document.getElementById('top-cited-grid'),
 
@@ -126,10 +125,6 @@ function renderGlobalStats() {
   if (el.totalPapers) el.totalPapers.textContent = state.stats.total_publications || 0;
   if (el.yearsSpan) el.yearsSpan.textContent = state.stats.years_span || 'N/A';
   if (el.totalCoauthors) el.totalCoauthors.textContent = state.stats.total_coauthors || 0;
-  if (el.totalCitations) {
-    const total = state.papers.reduce((s, p) => s + (p.citation_count || 0), 0);
-    el.totalCitations.textContent = total.toLocaleString();
-  }
 }
 
 function renderSidebarLists() {
