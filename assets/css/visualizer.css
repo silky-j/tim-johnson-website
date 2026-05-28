@@ -606,6 +606,15 @@ a:hover {
   stroke-width: 1;
 }
 
+.chart-bar--citations {
+  fill: rgba(13, 148, 136, 0.35);
+  stroke: rgba(13, 148, 136, 0.5);
+}
+.chart-bar--citations:hover {
+  fill: var(--accent-secondary);
+  filter: drop-shadow(0px 0px 8px rgba(13, 148, 136, 0.6));
+}
+
 /* Sort dropdown */
 .sort-container {
   display: flex;

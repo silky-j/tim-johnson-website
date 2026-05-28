@@ -87,6 +87,13 @@
             <span class="stat-lbl">Co-Authors</span>
           </div>
         </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="award"></i></div>
+          <div class="stat-content">
+            <span class="stat-val" id="stat-total-citations">0</span>
+            <span class="stat-lbl">Total Citations</span>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -193,6 +200,9 @@
           <button class="view-tab-btn" data-view="network" id="tab-network">
             <i data-lucide="share-2"></i> Co-Author Network
           </button>
+          <button class="view-tab-btn" data-view="citations" id="tab-citations">
+            <i data-lucide="award"></i> Citations
+          </button>
         </div>
 
         <!-- Dashboard View (Timeline + Publications List) -->
@@ -288,6 +298,30 @@
             <div class="timeline-helper-text">
               <i data-lucide="info" style="width: 14px; height: 14px;"></i> Click a co-author node to filter the publications list to their shared works.
             </div>
+          </section>
+        </div>
+
+        <!-- Citations Over Time View -->
+        <div id="view-citations" class="tab-view" style="display: none;">
+          <section class="visualizer-section">
+            <div class="section-header">
+              <h2><i data-lucide="award"></i> Citation Impact by Publication Year</h2>
+            </div>
+            <div class="timeline-container">
+              <div class="timeline-scroll">
+                <svg id="citations-svg" class="timeline-chart"></svg>
+              </div>
+              <div class="timeline-helper-text">
+                <i data-lucide="info" style="width: 14px; height: 14px;"></i> Total accumulated citations for all papers published each year
+              </div>
+            </div>
+          </section>
+
+          <section class="publications-section">
+            <div class="section-header">
+              <h2><i data-lucide="trophy"></i> Top Cited Papers</h2>
+            </div>
+            <div class="papers-grid" id="top-cited-grid"></div>
           </section>
         </div>
       </main>

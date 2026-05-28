@@ -43,6 +43,10 @@ const el = {
   emptyState: document.getElementById('empty-state'),
   emptyResetBtn: document.getElementById('empty-reset-btn'),
   
+  totalCitations: document.getElementById('stat-total-citations'),
+  citationsSvg: document.getElementById('citations-svg'),
+  topCitedGrid: document.getElementById('top-cited-grid'),
+
   // Dialog Elements
   dialog: document.getElementById('paper-dialog'),
   dialogCategoryBadge: document.getElementById('dialog-category-badge'),
@@ -122,6 +126,10 @@ function renderGlobalStats() {
   if (el.totalPapers) el.totalPapers.textContent = state.stats.total_publications || 0;
   if (el.yearsSpan) el.yearsSpan.textContent = state.stats.years_span || 'N/A';
   if (el.totalCoauthors) el.totalCoauthors.textContent = state.stats.total_coauthors || 0;
+  if (el.totalCitations) {
+    const total = state.papers.reduce((s, p) => s + (p.citation_count || 0), 0);
+    el.totalCitations.textContent = total.toLocaleString();
+  }
 }
 
 function renderSidebarLists() {
@@ -251,6 +259,108 @@ function renderTimeline() {
     
     el.timelineSvg.appendChild(group);
   });
+}
+
+// --- Citations by Publication Year (SVG) ---
+function renderCitationsChart() {
+  if (!el.citationsSvg) return;
+  const years = state.papers.map(p => p.year).filter(Boolean);
+  if (!years.length) return;
+
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const chartData = [];
+  for (let y = minYear; y <= maxYear; y++) {
+    const pubs = state.papers.filter(p => p.year === y);
+    const total = pubs.reduce((s, p) => s + (p.citation_count || 0), 0);
+    chartData.push({ year: y, total, count: pubs.length });
+  }
+
+  const width = 850;
+  const height = 150;
+  const paddingLeft = 30;
+  const paddingRight = 20;
+  const paddingTop = 25;
+  const paddingBottom = 25;
+  const chartWidth = width - paddingLeft - paddingRight;
+  const chartHeight = height - paddingTop - paddingBottom;
+
+  const maxTotal = Math.max(...chartData.map(d => d.total), 1);
+  const barWidth = Math.max(2, (chartWidth / chartData.length) - 4);
+
+  el.citationsSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  el.citationsSvg.innerHTML = '';
+
+  for (let i = 0; i <= 4; i++) {
+    const yVal = Math.round((maxTotal / 4) * i);
+    const yPos = chartHeight + paddingTop - (chartHeight * (yVal / maxTotal));
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', paddingLeft);
+    line.setAttribute('y1', yPos);
+    line.setAttribute('x2', width - paddingRight);
+    line.setAttribute('y2', yPos);
+    line.setAttribute('class', 'chart-grid-line');
+    el.citationsSvg.appendChild(line);
+  }
+
+  chartData.forEach((d, index) => {
+    const xPos = paddingLeft + (index * (chartWidth / chartData.length)) + 2;
+    const barHeight = chartHeight * (d.total / maxTotal);
+    const yPos = chartHeight + paddingTop - barHeight;
+
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('class', 'chart-bar-group');
+
+    const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bar.setAttribute('x', xPos);
+    bar.setAttribute('y', yPos);
+    bar.setAttribute('width', barWidth);
+    bar.setAttribute('height', barHeight > 0 ? barHeight : 1);
+    bar.setAttribute('class', 'chart-bar chart-bar--citations');
+    bar.setAttribute('data-year', d.year);
+
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    title.textContent = `${d.year}: ${d.total} citation(s) across ${d.count} paper(s)`;
+    bar.appendChild(title);
+
+    if (d.total > 0) {
+      const valText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      valText.setAttribute('x', xPos + barWidth / 2);
+      valText.setAttribute('y', yPos - 6);
+      valText.setAttribute('class', 'chart-value');
+      valText.textContent = d.total;
+      group.appendChild(valText);
+    }
+
+    const shouldShowYear = (chartData.length < 15) ||
+      (d.year === minYear || d.year === maxYear || d.year % 5 === 0);
+    if (shouldShowYear) {
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', xPos + barWidth / 2);
+      label.setAttribute('y', chartHeight + paddingTop + 16);
+      label.setAttribute('class', 'chart-label');
+      label.textContent = d.year;
+      group.appendChild(label);
+    }
+
+    group.appendChild(bar);
+    el.citationsSvg.appendChild(group);
+  });
+}
+
+// --- Top Cited Papers ---
+function renderTopCited(n = 15) {
+  if (!el.topCitedGrid) return;
+  const top = [...state.papers]
+    .filter(p => p.citation_count > 0)
+    .sort((a, b) => (b.citation_count || 0) - (a.citation_count || 0))
+    .slice(0, n);
+  el.topCitedGrid.innerHTML = top.map(buildPaperCardHTML).join('');
+  el.topCitedGrid.querySelectorAll('.paper-card').forEach(card => {
+    card.addEventListener('click', () => openPaperDetails(card.getAttribute('data-id')));
+  });
+  lucide.createIcons();
 }
 
 // --- Canvas Radial Orbit Network ---
@@ -628,62 +738,53 @@ function updateActiveFiltersBar() {
 }
 
 // --- Render Publication Cards ---
+function buildPaperCardHTML(paper) {
+  const themes = paperThemes(paper);
+  const cardClass = `paper-card theme-${themes[0] || 'general'}`;
+  const badgesHtml = themes.map(t => `<span class="paper-theme-badge theme-${t}">${getThemeDisplayName(t)}</span>`).join('');
+  const authorsDisplay = (paper.authors || []).map(a => a.name).join(', ');
+  let snippet = paper.abstract || 'No abstract available.';
+  if (snippet.length > 220) snippet = snippet.substring(0, 215) + '...';
+  return `
+    <article class="${cardClass}" data-id="${paper.id}">
+      <div class="paper-header">
+        <h3 class="paper-title">${paper.title}</h3>
+      </div>
+      <div class="paper-authors" title="${authorsDisplay}">${authorsDisplay}</div>
+      <div class="paper-snippet">${snippet}</div>
+      <div class="paper-meta">
+        <span class="meta-item"><i data-lucide="book-open"></i> ${paper.journal || 'Unknown Journal'}</span>
+        <span class="meta-item"><i data-lucide="calendar"></i> ${paper.year || 'N/A'}</span>
+        ${paper.doi ? `<span class="meta-item"><i data-lucide="link-2"></i> DOI Available</span>` : ''}
+        <span class="meta-item"><i data-lucide="award"></i> Citations: ${paper.citation_count || 0}</span>
+      </div>
+      <div class="paper-footer">
+        <div class="paper-themes-container">${badgesHtml}</div>
+        <span class="read-more">View Details <i data-lucide="arrow-right"></i></span>
+      </div>
+    </article>
+  `;
+}
+
 function renderPapersGrid(papers) {
   if (papers.length === 0) {
     el.papersGrid.style.display = 'none';
     el.emptyState.style.display = 'flex';
     return;
   }
-  
+
   el.papersGrid.style.display = 'grid';
   el.emptyState.style.display = 'none';
-  
-  el.papersGrid.innerHTML = papers.map(paper => {
-    const themes = paperThemes(paper);
-    const cardClass = `paper-card theme-${themes[0] || 'general'}`;
-    const badgesHtml = themes.map(t => `<span class="paper-theme-badge theme-${t}">${getThemeDisplayName(t)}</span>`).join('');
-    
-    const authorsDisplay = (paper.authors || []).map(a => a.name).join(', ');
-    
-    let snippet = paper.abstract || 'No abstract available.';
-    if (snippet.length > 220) {
-      snippet = snippet.substring(0, 215) + '...';
-    }
-    
-    return `
-      <article class="${cardClass}" data-id="${paper.id}">
-        <div class="paper-header">
-          <h3 class="paper-title">${paper.title}</h3>
-        </div>
-        
-        <div class="paper-authors" title="${authorsDisplay}">${authorsDisplay}</div>
-        
-        <div class="paper-snippet">${snippet}</div>
-        
-        <div class="paper-meta">
-          <span class="meta-item"><i data-lucide="book-open"></i> ${paper.journal || 'Unknown Journal'}</span>
-          <span class="meta-item"><i data-lucide="calendar"></i> ${paper.year || 'N/A'}</span>
-          ${paper.doi ? `<span class="meta-item"><i data-lucide="link-2"></i> DOI Available</span>` : ''}
-          <span class="meta-item"><i data-lucide="award"></i> Citations: ${paper.citation_count || 0}</span>
-        </div>
-        
-        <div class="paper-footer">
-          <div class="paper-themes-container">
-            ${badgesHtml}
-          </div>
-          <span class="read-more">View Details <i data-lucide="arrow-right"></i></span>
-        </div>
-      </article>
-    `;
-  }).join('');
-  
+
+  el.papersGrid.innerHTML = papers.map(buildPaperCardHTML).join('');
+
   el.papersGrid.querySelectorAll('.paper-card').forEach(card => {
     card.addEventListener('click', () => {
       const id = card.getAttribute('data-id');
       openPaperDetails(id);
     });
   });
-  
+
   lucide.createIcons();
 }
 
@@ -775,6 +876,12 @@ function switchTab(view) {
       renderOrbitNetwork();
     }, 50);
   }
+  if (view === 'citations') {
+    setTimeout(() => {
+      renderCitationsChart();
+      renderTopCited();
+    }, 50);
+  }
 }
 
 // --- Event Listeners Setup ---
@@ -854,6 +961,9 @@ function setupEventListeners() {
   
   if (tabDashboard) tabDashboard.addEventListener('click', () => switchTab('dashboard'));
   if (tabNetwork) tabNetwork.addEventListener('click', () => switchTab('network'));
+
+  const tabCitations = document.getElementById('tab-citations');
+  if (tabCitations) tabCitations.addEventListener('click', () => switchTab('citations'));
   
   // Network Graph Controls
   const minPapersSelect = document.getElementById('network-min-papers');
