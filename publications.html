@@ -37,6 +37,27 @@
     </div>
   </nav>
 
+  <!-- Mobile redirect notice (shown only on small screens via JS) -->
+  <div id="mobile-notice" class="mobile-notice" style="display:none;" aria-modal="true" role="dialog" aria-labelledby="mobile-notice-heading">
+    <div class="mobile-notice-glow"></div>
+    <div class="mobile-notice-inner">
+      <div class="mobile-notice-icon">
+        <i data-lucide="monitor"></i>
+      </div>
+      <h2 id="mobile-notice-heading">Best on Desktop</h2>
+      <p>The publications visualizer includes an interactive co-author network, timeline charts, and filter sidebar — these work best on a larger screen.</p>
+      <div class="mobile-notice-actions">
+        <a href="index.html" class="mobile-btn mobile-btn-primary">
+          <i data-lucide="home"></i> Go to Home
+        </a>
+        <a href="books.html" class="mobile-btn mobile-btn-secondary">
+          <i data-lucide="book-open"></i> View Books
+        </a>
+        <button id="mobile-continue-btn" class="mobile-btn mobile-btn-ghost">Continue anyway →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- App Shell -->
   <div class="app-container">
 
@@ -369,5 +390,27 @@
   <script src="assets/js/site.js"></script>
   <!-- Visualizer app -->
   <script type="module" src="assets/js/visualizer-app.js"></script>
+  <!-- Mobile redirect -->
+  <script>
+    (function () {
+      var notice = document.getElementById('mobile-notice');
+      if (!notice) return;
+      function check() {
+        if (window.innerWidth < 768) {
+          notice.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        } else {
+          notice.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      }
+      check();
+      window.addEventListener('resize', check, { passive: true });
+      document.getElementById('mobile-continue-btn').addEventListener('click', function () {
+        notice.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    })();
+  </script>
 </body>
 </html>

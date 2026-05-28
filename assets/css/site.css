@@ -474,6 +474,11 @@ ul { list-style: none; }
   .stat-band { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { justify-content: center; }
+
+  /* Books page — narrow-phone polish */
+  .book-card .book-top { flex-wrap: wrap; gap: 6px; }
+  .book-action-link { padding: 6px 0; min-height: 36px; }
+  .decade-head h2 { font-size: 1.3rem; }
 }
 
 /* --- Back to top --- */
