@@ -135,6 +135,7 @@ def send(subject, plain_body, html_body):
     gmail_user = os.environ.get("GMAIL_USER", "")
     app_password = os.environ.get("GMAIL_APP_PASSWORD", "")
     notify_email = os.environ.get("NOTIFY_EMAIL", "")
+    notify_recipients = [a.strip() for a in notify_email.split(",") if a.strip()]
 
     placeholder = {"", "your@email.com", "your-gmail@gmail.com", "xxxx-xxxx-xxxx-xxxx"}
     if not all([gmail_user, app_password, notify_email]) or any(
@@ -150,7 +151,7 @@ def send(subject, plain_body, html_body):
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = gmail_user
-    msg["To"] = notify_email
+    msg["To"] = ", ".join(notify_recipients)
     msg.attach(MIMEText(plain_body, "plain"))
     msg.attach(MIMEText(html_body, "html"))
 
@@ -158,8 +159,8 @@ def send(subject, plain_body, html_body):
         ctx = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ctx) as server:
             server.login(gmail_user, app_password)
-            server.sendmail(gmail_user, notify_email, msg.as_string())
-        print(f"send_update_email: notification sent to {notify_email}", flush=True)
+            server.sendmail(gmail_user, notify_recipients, msg.as_string())
+        print(f"send_update_email: notification sent to {', '.join(notify_recipients)}", flush=True)
     except smtplib.SMTPAuthenticationError:
         print(
             "send_update_email: Gmail authentication failed.\n"
