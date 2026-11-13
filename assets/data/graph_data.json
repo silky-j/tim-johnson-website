@@ -1,6 +1,6 @@
 {
   "stats": {
-    "total_publications": 308,
+    "total_publications": 307,
     "years_span": "1982 - 2025",
     "total_coauthors": 634,
     "top_journals": [
@@ -2835,49 +2835,6 @@
         "survey-methods",
         "cross-cultural",
         "alcohol-drug",
-        "disadvantaged-health"
-      ],
-      "source_match": "title"
-    },
-    {
-      "id": "fdef61b8-baa7-5a38-8913-e0d3d1fcb127",
-      "title": "Development of a Bidimensional Simpatía Scale for Use With Mexican American, Puerto Rican, and Cuban American Adults",
-      "doi": "https://doi.org/10.1097/nnr.0000000000000366",
-      "year": 2019,
-      "type": "journal_article",
-      "journal": "Nursing Research",
-      "publisher": "Lippincott Williams & Wilkins",
-      "abstract": "BACKGROUND: Through its influence on social interactions, simpatía may have a wide-ranging influence on Latinx health. Simpatía-which does not have a direct English translation-refers to being perceived as likeable, pleasant, and easygoing. Research to investigate the influence simpatía on Latinx health is limited, likely due to a lack of options for measuring simpatía among diverse Latinx populations. OBJECTIVES: The goal of this research was to develop a bilingual, survey-based simpatía scale for use among ethnically diverse Latinx adults in health-related settings. METHODS: Data were obtained through a telephone survey data of 1,296 Mexican American, Puerto Rican, and Cuban American adults living in the United States. Interviews were conducted in English and Spanish. Exploratory factor analysis, item response theory analysis, confirmatory factor analysis, and computation of estimates of internal consistency reliability were conducted to inform the development of the final simpatía scale. RESULTS: Results indicate that the final, nine-item, simpatía scale has high internal consistency (α = .83) and measurement invariance among Mexican American, Puerto Rican, and Cuban American adults. Two dimensions were identified, as indicated by a perceptions subscale and a behavior subscale. Cuban Americans were found to have the highest simpatía scores, followed by Puerto Ricans and Mexican Americans. DISCUSSION: Culture is often identified as a powerful potential influence on health-related behaviors, but measures are often not available to assess specific cultural traits. By developing a new tool for measuring simpatía, this research advances opportunities for understanding and promoting Latinx health.",
-      "citation_count": 7,
-      "theme": "cross-cultural",
-      "authors": [
-        {
-          "uuid": "6f8821c3-2982-54a4-95d7-70db3f340cf0",
-          "name": "Rachel E. Davis",
-          "position": 1,
-          "corresponding": 1
-        },
-        {
-          "uuid": "ee00cfdd-c5d9-55eb-b2eb-d5615b56afe3",
-          "name": "Sung‐Hee Lee",
-          "position": 2,
-          "corresponding": 0
-        },
-        {
-          "uuid": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
-          "name": "Timothy P. Johnson",
-          "position": 2,
-          "corresponding": 0
-        },
-        {
-          "uuid": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
-          "name": "Steven K. Rothschild",
-          "position": 99,
-          "corresponding": 0
-        }
-      ],
-      "themes": [
-        "cross-cultural",
         "disadvantaged-health"
       ],
       "source_match": "title"
@@ -9632,30 +9589,6 @@
       "source_match": "title"
     },
     {
-      "id": "6c9ed796-e59f-5a1b-921a-ffc7b9544be4",
-      "title": "Snowball Sampling",
-      "doi": "https://doi.org/10.1002/0470011815.b2a16070",
-      "year": 2005,
-      "type": "journal_article",
-      "journal": "Encyclopedia of Biostatistics",
-      "publisher": null,
-      "abstract": "Abstract Snowball sampling is a well‐known, nonprobability method of survey sample selection that is commonly used to locate hidden populations. This method relies on referrals from initially sampled respondents to other persons believed to have the characteristic of interest. Limitations of this approach include nonrandom selection procedures, correlations between network size and selection probabilities, reliance on the subjective judgments of informants, and confidentiality concerns. Advantages include cost and efficiency.",
-      "citation_count": 46,
-      "theme": "survey-methods",
-      "authors": [
-        {
-          "uuid": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
-          "name": "Timothy P. Johnson",
-          "position": 1,
-          "corresponding": 1
-        }
-      ],
-      "themes": [
-        "survey-methods"
-      ],
-      "source_match": "title"
-    },
-    {
       "id": "c1307d7d-9a0b-55a0-9283-8c6bdd93b36e",
       "title": "The Co-Occurrence of Depression and Alcohol Dependence Symptoms in a Community Sample of Lesbians",
       "doi": "https://doi.org/10.1300/j155v09n03_02",
@@ -13467,6 +13400,49 @@
       "source_match": "title"
     },
     {
+      "id": "fdef61b8-baa7-5a38-8913-e0d3d1fcb127",
+      "title": "Development of a Bidimensional Simpatía Scale for Use With Mexican American, Puerto Rican, and Cuban American Adults",
+      "doi": "https://doi.org/10.1097/nnr.0000000000000366",
+      "year": 2019,
+      "type": "journal_article",
+      "journal": "Nursing Research",
+      "publisher": "Lippincott Williams & Wilkins",
+      "abstract": "BACKGROUND: Through its influence on social interactions, simpatía may have a wide-ranging influence on Latinx health. Simpatía-which does not have a direct English translation-refers to being perceived as likeable, pleasant, and easygoing. Research to investigate the influence simpatía on Latinx health is limited, likely due to a lack of options for measuring simpatía among diverse Latinx populations. OBJECTIVES: The goal of this research was to develop a bilingual, survey-based simpatía scale for use among ethnically diverse Latinx adults in health-related settings. METHODS: Data were obtained through a telephone survey data of 1,296 Mexican American, Puerto Rican, and Cuban American adults living in the United States. Interviews were conducted in English and Spanish. Exploratory factor analysis, item response theory analysis, confirmatory factor analysis, and computation of estimates of internal consistency reliability were conducted to inform the development of the final simpatía scale. RESULTS: Results indicate that the final, nine-item, simpatía scale has high internal consistency (α = .83) and measurement invariance among Mexican American, Puerto Rican, and Cuban American adults. Two dimensions were identified, as indicated by a perceptions subscale and a behavior subscale. Cuban Americans were found to have the highest simpatía scores, followed by Puerto Ricans and Mexican Americans. DISCUSSION: Culture is often identified as a powerful potential influence on health-related behaviors, but measures are often not available to assess specific cultural traits. By developing a new tool for measuring simpatía, this research advances opportunities for understanding and promoting Latinx health.",
+      "citation_count": 7,
+      "theme": "cross-cultural",
+      "authors": [
+        {
+          "uuid": "6f8821c3-2982-54a4-95d7-70db3f340cf0",
+          "name": "Rachel E. Davis",
+          "position": 1,
+          "corresponding": 1
+        },
+        {
+          "uuid": "ee00cfdd-c5d9-55eb-b2eb-d5615b56afe3",
+          "name": "Sung‐Hee Lee",
+          "position": 2,
+          "corresponding": 0
+        },
+        {
+          "uuid": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
+          "name": "Timothy P. Johnson",
+          "position": 2,
+          "corresponding": 0
+        },
+        {
+          "uuid": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
+          "name": "Steven K. Rothschild",
+          "position": 99,
+          "corresponding": 0
+        }
+      ],
+      "themes": [
+        "cross-cultural",
+        "disadvantaged-health"
+      ],
+      "source_match": "coauthor_network"
+    },
+    {
       "id": "a766ae70-b9b7-59fe-b393-75742001366b",
       "title": "Surveys of scientists show women and young academics suffered most during pandemic and may face long-term career consequences",
       "doi": "https://doi.org/10.64628/aai.u9hegesvr",
@@ -15861,11 +15837,6 @@
       "count": 4
     },
     {
-      "id": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
-      "name": "Steven K. Rothschild",
-      "count": 4
-    },
-    {
       "id": "d4bde98d-f88c-5407-8b17-376bde57e4ac",
       "name": "Caryn E. Peterson",
       "count": 4
@@ -15923,6 +15894,11 @@
     {
       "id": "f0840b52-77ed-5971-a77a-362043149d1b",
       "name": "John W. Horm",
+      "count": 4
+    },
+    {
+      "id": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
+      "name": "Steven K. Rothschild",
       "count": 4
     },
     {
@@ -18812,7 +18788,7 @@
         "data": {
           "id": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
           "label": "Timothy P. Johnson",
-          "count": 308,
+          "count": 307,
           "type": "main"
         }
       },
@@ -19178,14 +19154,6 @@
       },
       {
         "data": {
-          "id": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
-          "label": "Steven K. Rothschild",
-          "count": 4,
-          "type": "coauthor"
-        }
-      },
-      {
-        "data": {
           "id": "d4bde98d-f88c-5407-8b17-376bde57e4ac",
           "label": "Caryn E. Peterson",
           "count": 4,
@@ -19276,6 +19244,14 @@
         "data": {
           "id": "f0840b52-77ed-5971-a77a-362043149d1b",
           "label": "John W. Horm",
+          "count": 4,
+          "type": "coauthor"
+        }
+      },
+      {
+        "data": {
+          "id": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
+          "label": "Steven K. Rothschild",
           "count": 4,
           "type": "coauthor"
         }
@@ -19820,14 +19796,6 @@
       },
       {
         "data": {
-          "id": "edge_eb197f3e-0353-5e01-945c-ffb119c1dc83",
-          "source": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
-          "target": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
-          "weight": 4
-        }
-      },
-      {
-        "data": {
           "id": "edge_d4bde98d-f88c-5407-8b17-376bde57e4ac",
           "source": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
           "target": "d4bde98d-f88c-5407-8b17-376bde57e4ac",
@@ -19919,6 +19887,14 @@
           "id": "edge_f0840b52-77ed-5971-a77a-362043149d1b",
           "source": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
           "target": "f0840b52-77ed-5971-a77a-362043149d1b",
+          "weight": 4
+        }
+      },
+      {
+        "data": {
+          "id": "edge_eb197f3e-0353-5e01-945c-ffb119c1dc83",
+          "source": "c061bddd-9686-5c4e-99ed-01ed235e4b4d",
+          "target": "eb197f3e-0353-5e01-945c-ffb119c1dc83",
           "weight": 4
         }
       },

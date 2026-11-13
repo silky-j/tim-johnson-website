@@ -1,17 +1,16 @@
-input OpenAlex pubs: 428
-kept (RG/Scholar matched): 276
+input OpenAlex pubs: 308
+kept (RG/Scholar matched): 274
 kept (heuristic, no source match): 0
-quarantined: 120
-  deny:denied: 10
-  kept:coauthor_network: 32
-  quarantined:unverified: 110
+quarantined: 1
+  kept:coauthor_network: 33
+  quarantined:unverified: 1
 
-final total_publications: 308
+final total_publications: 307
 years_span: 1982 - 2025
 total_coauthors: 634
 
 theme distribution (multi-label):
-  survey-methods: 143
+  survey-methods: 142
   disadvantaged-health: 140
   alcohol-drug: 89
   cross-cultural: 75

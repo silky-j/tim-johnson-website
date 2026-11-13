@@ -1,5 +1,5 @@
 // Compiled News & Publications for Timothy P. Johnson
-// Generated on 2026-05-27 19:52:01
+// Generated on 2026-11-13 16:21:31
 window.NEWS_DATA = [
   {
     "title": "Self-censorship, more stress, tougher recruiting: We asked U.S. researchers how the Trump administration’s science policies have affected them",
@@ -8,14 +8,6 @@ window.NEWS_DATA = [
     "source": "The Washington Post",
     "category": "news",
     "snippet": "Co-authored with Eric Welch, this SciOPS survey details the increase in self-censorship and career anxiety among U.S. academic scientists in response to recent science policies."
-  },
-  {
-    "title": "Self-censorship, more stress, tougher recruiting – we asked US researchers how the Trump administration’s science policies have affected them",
-    "url": "https://theconversation.com/self-censorship-more-stress-tougher-recruiting-we-asked-us-researchers-how-the-trump-administrations-science-policies-have-affected-them-280968",
-    "date": "2026-05-19",
-    "source": "The Conversation",
-    "category": "news",
-    "snippet": "Self-censorship, more stress, tougher recruiting – we asked US researchers how the Trump administration’s science policies have affected them  The Conversation..."
   },
   {
     "title": "Workplace Sexual Harassment and the Risk of Chronic Disease in a Prospective Cohort Study",
@@ -130,11 +122,11 @@ window.NEWS_DATA = [
     "snippet": "Timothy P. Johnson was awarded the AAPOR Award for Exceptionally Distinguished Achievement, the association’s highest honor, recognizing outstanding career contributions."
   },
   {
-    "title": "Surveys of scientists show women and young academics suffered most during pandemic and may face long-term career consequences",
-    "url": "https://theconversation.com/surveys-of-scientists-show-women-and-young-academics-suffered-most-during-pandemic-and-may-face-long-term-career-consequences-173321",
-    "date": "2021-12-16",
-    "source": "The Conversation",
+    "title": "COVID-19 and the academy: opinions and experiences of university-based scientists in the U.S.",
+    "url": "https://www.nature.com/articles/s41599-021-00823-9",
+    "date": "2021-06-17",
+    "source": "Nature",
     "category": "news",
-    "snippet": "Surveys of scientists show women and young academics suffered most during pandemic and may face long-term career consequences  The Conversation..."
+    "snippet": "COVID-19 and the academy: opinions and experiences of university-based scientists in the U.S.  Nature..."
   }
 ];
